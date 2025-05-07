@@ -2,6 +2,8 @@
 
 Realistic Livestock mod for FS25, coming shortly.
 
+Please note that due to the complexity of the mod (it is several tens of thousands of lines of code), it does not currently support MP)
+
 # Features:
 <ins>**Male Animals**</ins>
 - Higher value
