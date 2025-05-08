@@ -8,6 +8,7 @@ Please note that due to the complexity of the mod (it is several tens of thousan
 <ins>**Male Animals**</ins>
 - Higher value
 - Required for reproduction
+- No male models (im not a 3d artist)
 
 <ins>**Visual Animals**</ins>
 - The limit of visual animals per husbandry has been increased from 25 in the vanilla game, up to 200 at maximum which can be changed with a slider
