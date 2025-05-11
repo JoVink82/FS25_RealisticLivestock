@@ -80,3 +80,26 @@ function RL_AnimalScreenDealerFarm:applySource(_, animalTypeIndex, animalIndex)
 end
 
 AnimalScreenDealerFarm.applySource = Utils.overwrittenFunction(AnimalScreenDealerFarm.applySource, RL_AnimalScreenDealerFarm.applySource)
+
+
+function RL_AnimalScreenDealerFarm:getSourcePrice(_, animalTypeIndex, animalIndex, _)
+
+    if self.sourceItems[animalTypeIndex] ~= nil then
+
+        local item = self.sourceItems[animalTypeIndex][animalIndex]
+
+        if item ~= nil then
+
+	        local price = item:getPrice()
+	        local transportationFee = item:getTranportationFee(1)
+	        return true, price, transportationFee, price + transportationFee
+
+        end
+
+    end
+
+    return false, 0, 0, 0
+
+end
+
+AnimalScreenDealerFarm.getSourcePrice = Utils.overwrittenFunction(AnimalScreenDealerFarm.getSourcePrice, RL_AnimalScreenDealerFarm.getSourcePrice)

@@ -80,3 +80,25 @@ function RL_AnimalScreenDealerTrailer:applySource(_, animalTypeIndex, animalInde
 end
 
 AnimalScreenDealerTrailer.applySource = Utils.overwrittenFunction(AnimalScreenDealerTrailer.applySource, RL_AnimalScreenDealerTrailer.applySource)
+
+
+function RL_AnimalScreenDealerTrailer:getSourcePrice(_, animalTypeIndex, animalIndex, _)
+
+    if self.sourceItems[animalTypeIndex] ~= nil then
+
+        local item = self.sourceItems[animalTypeIndex][animalIndex]
+
+        if item ~= nil then
+
+	        local price = item:getPrice()
+	        return true, price, 0, price
+
+        end
+
+    end
+
+    return false, 0, 0, 0
+
+end
+
+AnimalScreenDealerTrailer.getSourcePrice = Utils.overwrittenFunction(AnimalScreenDealerTrailer.getSourcePrice, RL_AnimalScreenDealerTrailer.getSourcePrice)
