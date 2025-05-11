@@ -99,6 +99,18 @@
 		<text name="rl_ui_cantFindAnimal" text="Impossible de trouver l'animal"/>
 		<text name="rl_ui_maleNumImpregnatable" text="Animaux imprégnables dans un enclos"/>
 
+		<text name="rl_ui_breederQuality" text="Qualité de l'éleveur"/>
+		<text name="rl_ui_birthday" text="Anniversaire"/>
+		<text name="rl_ui_pregnancyExpected" text="Attendu"/>
+		<text name="rl_ui_pregnancyExpecting" text="Attente"/>
+		<text name="rl_ui_pregnancyBaby" text="bébé"/>
+		<text name="rl_ui_pregnancyBabies" text="bébés"/>
+		<text name="rl_ui_animalOrigin" text="Origine"/>
+		<text name="rl_ui_months" text="mois"/>
+		<text name="rl_ui_month" text="mois"/>
+		<text name="rl_ui_years" text="années"/>
+		<text name="rl_ui_year" text="année"/>
+
 		<text name="rl_ui_milk" text="Production laitière"/>
 		<text name="rl_ui_wool" text="Production de laine"/>
 		<text name="rl_ui_eggs" text="Production d'œufs"/>

@@ -99,6 +99,18 @@
 		<text name="rl_ui_cantFindAnimal" text="Nie można znaleźć zwierzęcia"/>
 		<text name="rl_ui_maleNumImpregnatable" text="Zwierzęta w kojcach, które można zapłodnić"/>
 
+		<text name="rl_ui_breederQuality" text="Jakość hodowcy"/>
+		<text name="rl_ui_birthday" text="Urodziny"/>
+		<text name="rl_ui_pregnancyExpected" text="Oczekiwany"/>
+		<text name="rl_ui_pregnancyExpecting" text="Oczekiwanie"/>
+		<text name="rl_ui_pregnancyBaby" text="dziecko"/>
+		<text name="rl_ui_pregnancyBabies" text="dzieci"/>
+		<text name="rl_ui_animalOrigin" text="Pochodzenie"/>
+		<text name="rl_ui_months" text="miesiące"/>
+		<text name="rl_ui_month" text="miesiąc"/>
+		<text name="rl_ui_years" text="lata"/>
+		<text name="rl_ui_year" text="rok"/>
+
 		<text name="rl_ui_milk" text="Produkcja mleka"/>
 		<text name="rl_ui_wool" text="Produkcja wełny"/>
 		<text name="rl_ui_eggs" text="Produkcja jaj"/>

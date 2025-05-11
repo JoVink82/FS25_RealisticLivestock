@@ -99,6 +99,18 @@
 		<text name="rl_ui_cantFindAnimal" text="Konnte kein Tier finden"/>
 		<text name="rl_ui_maleNumImpregnatable" text="Imprägnierbare Tiere im Pferch"/>
 
+		<text name="rl_ui_breederQuality" text="Qualität des Züchters"/>
+		<text name="rl_ui_birthday" text="Geburtstag"/>
+		<text name="rl_ui_pregnancyExpected" text="Erwartet"/>
+		<text name="rl_ui_pregnancyExpecting" text="Erwarten Sie"/>
+		<text name="rl_ui_pregnancyBaby" text="Baby"/>
+		<text name="rl_ui_pregnancyBabies" text="Babies"/>
+		<text name="rl_ui_animalOrigin" text="Herkunft"/>
+		<text name="rl_ui_months" text="Monate"/>
+		<text name="rl_ui_month" text="Monat"/>
+		<text name="rl_ui_years" text="Jahre"/>
+		<text name="rl_ui_year" text="Jahr"/>
+
 		<text name="rl_ui_milk" text="Milcherzeugung"/>
 		<text name="rl_ui_wool" text="Produktion von Wolle"/>
 		<text name="rl_ui_eggs" text="Eierproduktion"/>
