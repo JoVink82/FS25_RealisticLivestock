@@ -134,7 +134,7 @@ function AnimalSystem:initialiseCountries()
 end
 
 
-function AnimalSystem:validateFarms()
+function AnimalSystem:validateFarms(hasData)
 
     if self.countries == nil then self.countries = {} end
 
@@ -256,26 +256,27 @@ function AnimalSystem:validateFarms()
 
     -- validate there are at least 25 animals of each type for sale
 
+    if not hasData then
     
-    for animalTypeIndex, animals in pairs(self.animals) do
+        for animalTypeIndex, animals in pairs(self.animals) do
 
-        if #animals < 25 then
+            if #animals < 25 then
 
-            for i = #animals + 1, 25 do
+                for i = #animals + 1, 25 do
 
-                local animal = self:createNewSaleAnimal(animalTypeIndex)
+                    local animal = self:createNewSaleAnimal(animalTypeIndex)
 
-                if animal ~= nil then table.insert(animals, animal) end
+                    if animal ~= nil then table.insert(animals, animal) end
+
+                end
 
             end
 
+            self.animals[animalTypeIndex] = animals
+
         end
-
-        self.animals[animalTypeIndex] = animals
-
-    end
    
-
+    end
 
 end
 
@@ -285,11 +286,14 @@ function AnimalSystem:loadFromXMLFile()
     local savegameIndex = g_careerScreen.savegameList.selectedIndex
     local savegame = g_savegameController:getSavegame(savegameIndex)
 
-    if savegame == nil or savegame.savegameDirectory == nil then return end
+    if savegame == nil or savegame.savegameDirectory == nil then return false end
 
     local xmlFile = XMLFile.loadIfExists("animalSystem", savegame.savegameDirectory .. "/animalSystem.xml")
 
-    if xmlFile == nil then return end
+    if xmlFile == nil then return false end
+
+
+    local hasData = false
 
 
     xmlFile:iterate("animalSystem.countries.country", function(_, key)
@@ -299,6 +303,8 @@ function AnimalSystem:loadFromXMLFile()
         local farms = self.countries[countryIndex].farms
 
         xmlFile:iterate(key .. ".farm", function(_, farmKey)
+
+            hasData = true
 
             local farmId = xmlFile:getInt(farmKey .. "#id")
             local cowId = xmlFile:getInt(farmKey .. "#cowId", nil)
@@ -337,6 +343,8 @@ function AnimalSystem:loadFromXMLFile()
 
 
     xmlFile:delete()
+
+    return hasData
 
 end
 
