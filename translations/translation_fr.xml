@@ -1,0 +1,189 @@
+<l10n>
+	<texts>
+		<!-- COWS -->
+		
+		<text name="fillType_bull" text="Taureau"/>
+		<text name="fillType_bull_swiss_brown" text="Taureau Brun-Suisse"/>
+		<text name="fillType_bull_holstein" text="Taureau Holstein"/>
+		<text name="fillType_bull_angus" text="Taureau Angus"/>
+		<text name="fillType_bull_limousin" text="Taureau Limousin"/>
+		<text name="animal_descriptionBullFeed" text="Les taureaux aiment l'herbe, le foin et le TMR."/>
+		<text name="animal_descriptionBullYoung" text="Il s'agit d'un veau mâle."/>
+		<text name="animal_descriptionBullReproduction" text="Les taureaux en bonne santé et âgés de plus de 12 mois peuvent se reproduire."/>
+
+		<!-- WATER BUFFALOS -->
+
+		<text name="fillType_bull_waterbuffalo" text="Taureau buffle d'eau"/>
+
+		<!-- PIGS -->
+		
+		<text name="fillType_boar" text="Verrat"/>
+		<text name="fillType_boar_landrace" text="Sanglier de race locale"/>
+		<text name="fillType_boar_black_pied" text="Sanglier à Pied Noir"/>
+		<text name="fillType_boar_berkshire" text="Sanglier du Berkshire"/>
+		<text name="animal_descriptionBoarReproduction" text="Les verrats en bonne santé et âgés de plus de 8 mois peuvent se reproduire."/>
+		<text name="animal_descriptionBoarFeed" text="Les sangliers mangent presque n'importe quoi. Vous pouvez leur donner du maïs, du blé, de l'orge, du canola, du tournesol, du soja, des pommes de terre, du sorgho et des betteraves sucrières."/>
+		<text name="animal_descriptionBoarYoung" text="Il s'agit d'un porcelet mâle."/>
+
+		<!-- SHEEP -->
+		
+		<text name="fillType_ram" text="Bélier"/>
+		<text name="fillType_ram_landrace" text="Race locale de Bentheim Bélier"/>
+		<text name="fillType_ram_steinschaf" text="Steinschaf Bélier"/>
+		<text name="fillType_ram_black_welsh" text="Bélier gallois noir"/>
+		<text name="fillType_ram_swiss_mountain" text="Bélier suisse noir et brun"/>
+		<text name="animal_descriptionRamFeed" text="Les béliers mangent de l'herbe et du foin."/>
+		<text name="animal_descriptionRamYoung" text="Il s'agit d'un agneau mâle."/>
+		<text name="animal_descriptionRamReproduction" text="Les béliers en bonne santé et âgés de plus de 5 mois peuvent se reproduire."/>
+
+		<!-- GOATS -->
+
+		<text name="fillType_ram_goat" text="Chèvre bélier"/>
+		
+		<!-- HORSES -->
+		
+		<text name="fillType_stallion" text="Étalon"/>
+		<text name="fillType_stallion_gray" text="Étalon gris"/>
+		<text name="fillType_stallion_pinto" text="Étalon Pinto"/>
+		<text name="fillType_stallion_palomino" text="Étalon palomino"/>
+		<text name="fillType_stallion_chestnut" text="Étalon alezan"/>
+		<text name="fillType_stallion_bay" text="Étalon bai"/>
+		<text name="fillType_stallion_black" text="Étalon noir"/>
+		<text name="fillType_stallion_seal_brown" text="Étalon brun du phoque"/>
+		<text name="fillType_stallion_dun" text="Étalon Dun"/>
+		<text name="animal_descriptionStallionFeed" text="Les étalons aiment le foin, l'avoine et le sorgho."/>
+		<text name="animal_descriptionStallionProfit" text="Les étalons peuvent être vendus avec profit."/>
+		<text name="animal_descriptionStallionReproduction" text="Les étalons en bonne santé et âgés de plus de 36 mois peuvent se reproduire."/>
+
+
+        <!-- UI -->
+
+		
+        <text name="input_VisualAnimalsDialog" text="Changement Animaux Visuels Montant"/>
+        <text name="rl_button_apply" text="Appliquer"/>
+		<text name="rl_button_confirm" text="Confirmer"/>
+        <text name="rl_button_recommended" text="Recommandé"/>
+        <text name="rl_button_cancel" text="Annuler"/>
+		<text name="rl_button_random" text="Aléatoire"/>
+        <text name="rl_dialog_title" text="Définir le nombre maximum d'animaux visuels"/>
+
+        <text name="rl_ui_unhealthy" text="Trop malsain"/>
+        <text name="rl_ui_unhealthyBracketed" text="Non (trop malsain)"/>
+        <text name="rl_ui_noMaleAnimal" text="Pas d'animal mâle approprié"/>
+        <text name="rl_ui_noMaleAnimalBracketed" text="Non (pas d'animal mâle approprié)"/>
+        <text name="rl_ui_recoveringLastBirth" text="Récupération après le dernier accouchement"/>
+        <text name="rl_ui_recoveringLastBirthBracketed" text="Non (en convalescence depuis le dernier accouchement)"/>
+        <text name="rl_ui_tooYoung" text="Trop jeune"/>
+        <text name="rl_ui_tooYoungBracketed" text="Non (trop jeune)"/>
+        <text name="rl_ui_pregnant" text="Enceinte"/>
+        <text name="rl_ui_lactating" text="Allaitement"/>
+        <text name="rl_ui_canReproduce" text="Peut se reproduire"/>
+        <text name="rl_ui_impregnatedBy" text="Imprégné par"/>
+        <text name="rl_ui_unknown" text="Inconnu"/>
+        <text name="rl_ui_yes" text="Oui"/>
+        <text name="rl_ui_no" text="Non"/>
+        <text name="rl_ui_mother" text="Mère"/>
+        <text name="rl_ui_father" text="Père"/>
+        <text name="rl_ui_uniqueId" text="Identifiant unique"/>
+        <text name="rl_ui_farmId" text="ID de l'exploitation"/>
+        <text name="rl_ui_gender" text="Genre"/>
+        <text name="rl_ui_male" text="Homme"/>
+        <text name="rl_ui_female" text="Femme"/>
+		<text name="rl_ui_weight" text="Poids"/>
+		<text name="rl_ui_targetWeight" text="Poids cible"/>
+		<text name="rl_ui_value" text="Valeur"/>
+		<text name="rl_ui_valuePerKilo" text="Valeur par kg"/>
+		<text name="rl_ui_genetics" text="Génétique"/>
+		<text name="rl_ui_overall" text="Globalement"/>
+		<text name="rl_ui_rename" text="Changer de nom"/>
+		<text name="rl_ui_cantFindAnimal" text="Impossible de trouver l'animal"/>
+		<text name="rl_ui_maleNumImpregnatable" text="Animaux imprégnables dans un enclos"/>
+
+		<text name="rl_ui_milk" text="Production laitière"/>
+		<text name="rl_ui_wool" text="Production de laine"/>
+		<text name="rl_ui_eggs" text="Production d'œufs"/>
+		<text name="rl_ui_metabolism" text="Métabolisme"/>
+		<text name="rl_ui_meat" text="Qualité"/>
+		<text name="rl_ui_health" text="Santé"/>
+		<text name="rl_ui_fertility" text="Fécondité"/>
+
+		<text name="rl_ui_genetics_extremelyLow" text="Extrêmement faible"/>
+		<text name="rl_ui_genetics_veryLow" text="Très faible"/>
+		<text name="rl_ui_genetics_low" text="Faible"/>
+		<text name="rl_ui_genetics_average" text="Moyenne"/>
+		<text name="rl_ui_genetics_high" text="Haut"/>
+		<text name="rl_ui_genetics_veryHigh" text="Très haut"/>
+		<text name="rl_ui_genetics_extremelyHigh" text="Extrêmement haut"/>
+
+		<text name="rl_ui_genetics_extremelyBad" text="Extrêmement mauvais"/>
+		<text name="rl_ui_genetics_veryBad" text="Très mauvais"/>
+		<text name="rl_ui_genetics_bad" text="Mauvais"/>
+		<text name="rl_ui_genetics_good" text="Bon"/>
+		<text name="rl_ui_genetics_veryGood" text="Très bon"/>
+		<text name="rl_ui_genetics_extremelyGood" text="Extrêmement bon"/>
+
+        <text name="rl_ui_cow_multipleBirths" text="%s veaux sont nés" tag="format"/>
+        <text name="rl_ui_cow_singleBirth" text="1 veau est né"/>
+        <text name="rl_ui_pig_multipleBirths" text="%s porcelets sont nés" tag="format"/>
+        <text name="rl_ui_pig_singleBirth" text="1 porcelet est né"/>
+        <text name="rl_ui_sheep_multipleBirths" text="%s agneaux sont nés" tag="format"/>
+        <text name="rl_ui_sheep_singleBirth" text="1 agneau est né"/>
+        <text name="rl_ui_chicken_multipleBirths" text="%s poussins sont nés" tag="format"/>
+        <text name="rl_ui_chicken_singleBirth" text="1 poussin est né"/>
+        <text name="rl_ui_horse_multipleBirths" text="%s poulains sont nés" tag="format"/>
+        <text name="rl_ui_horse_singleBirth" text="1 poulain est né"/>
+
+        <text name="rl_ui_cow_multipleDeaths_birth" text="%s vaches retirées en raison de problèmes pendant la grossesse" tag="format"/>
+        <text name="rl_ui_cow_singleDeath_birth" text="1 vache retirée en raison de problèmes pendant la grossesse"/>
+        <text name="rl_ui_pig_multipleDeaths_birth" text="%s porcs retirées en raison de problèmes pendant la grossesse" tag="format"/>
+        <text name="rl_ui_pig_singleDeath_birth" text="1 porc retiré en raison de problèmes pendant la grossesse"/>
+        <text name="rl_ui_sheep_multipleDeaths_birth" text="%s brebis retirées en raison de problèmes pendant la grossesse" tag="format"/>
+        <text name="rl_ui_sheep_singleDeath_birth" text="1 brebis retirée en raison de problèmes pendant la grossesse"/>
+        <text name="rl_ui_horse_multipleDeaths_birth" text="%s chevaux retirées en raison de problèmes pendant la grossesse" tag="format"/>
+        <text name="rl_ui_horse_singleDeath_birth" text="1 cheval retiré en raison de problèmes pendant la grossesse"/>
+
+        <text name="rl_ui_cow_multipleSold_birth" text="%s veaux ont été vendus à la naissance en raison de la surpopulation" tag="format"/>
+        <text name="rl_ui_cow_singleSold_birth" text="1 veau a été vendu à la naissance en raison de la surpopulation"/>
+        <text name="rl_ui_pig_multipleSold_birth" text="%s porcelets ont été vendus à la naissance en raison de la surpopulation" tag="format"/>
+        <text name="rl_ui_pig_singleSold_birth" text="1 porcelet a été vendu à la naissance en raison de la surpopulation"/>
+        <text name="rl_ui_sheep_multipleSold_birth" text="%s agneaux ont été vendus à la naissance en raison de la surpopulation" tag="format"/>
+        <text name="rl_ui_sheep_singleSold_birth" text="1 agneau a été vendu à la naissance pour cause de surpopulation"/>
+        <text name="rl_ui_chicken_multipleSold_birth" text="%s poussins ont été vendus à la naissance en raison de la surpopulation" tag="format"/>
+        <text name="rl_ui_chicken_singleSold_birth" text="1 poussin a été vendu à la naissance en raison de la surpopulation"/>
+        <text name="rl_ui_horse_multipleSold_birth" text="%s poulains ont été vendus à la naissance en raison de la surpopulation" tag="format"/>
+        <text name="rl_ui_horse_singleSold_birth" text="1 poulain a été vendu à la naissance pour cause de surpopulation"/>
+
+		<text name="rl_ui_cow_multipleDeaths_health" text="%s vaches retirés en raison de leur faible état de santé" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_health" text="1 vache retiré en raison de leur faible état de santé"/>
+		<text name="rl_ui_pig_multipleDeaths_health" text="%s porcs retirés en raison de leur faible état de santé" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_health" text="1 porc retiré en raison de leur faible état de santé"/>
+		<text name="rl_ui_sheep_multipleDeaths_health" text="%s moutons retirés en raison de leur faible état de santé" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_health" text="1 mouton retiré en raison de leur faible état de santé"/>
+		<text name="rl_ui_chicken_multipleDeaths_health" text="%s poulets retirés en raison de leur faible état de santé" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_health" text="1 poulet retiré en raison de leur faible état de santé"/>
+		<text name="rl_ui_horse_multipleDeaths_health" text="%s chevaux retirés en raison de leur faible état de santé" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_health" text="1 cheval retiré en raison de leur faible état de santé"/>
+
+		<text name="rl_ui_cow_multipleDeaths_age" text="%s vaches retirées pour cause de vieillesse" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_age" text="1 vache retirée pour cause de vieillesse"/>
+		<text name="rl_ui_pig_multipleDeaths_age" text="%s porcs retirées pour cause de vieillesse" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_age" text="1 porc retirée pour cause de vieillesse"/>
+		<text name="rl_ui_sheep_multipleDeaths_age" text="%s moutons retirées pour cause de vieillesse" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_age" text="1 mouton retirée pour cause de vieillesse"/>
+		<text name="rl_ui_chicken_multipleDeaths_age" text="%s poulets retirées pour cause de vieillesse" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_age" text="1 poulet retirée pour cause de vieillesse"/>
+		<text name="rl_ui_horse_multipleDeaths_age" text="%s chevaux retirées pour cause de vieillesse" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_age" text="1 cheval retirée pour cause de vieillesse"/>
+
+		<text name="rl_ui_cow_multipleDeaths_random" text="%s vaches retirées à la suite d'accidents aléatoires et ont été vendues pour %s" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_random" text="1 vache retirée à la suite d'un accident et a été vendue pour %s" tag="format"/>
+		<text name="rl_ui_pig_multipleDeaths_random" text="%s porcs retirées à la suite d'accidents aléatoires et ont été vendus pour %s" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_random" text="1 porc retirée à la suite d'un accident aléatoire et a été vendu pour %s" tag="format"/>
+		<text name="rl_ui_sheep_multipleDeaths_random" text="%s moutons retirées à la suite d'accidents aléatoires et ont été vendus pour %s" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_random" text="1 mouton retirée à la suite d'un accident aléatoire et a été vendu pour %s" tag="format"/>
+		<text name="rl_ui_chicken_multipleDeaths_random" text="%s poulets retirées à cause d'accidents aléatoires" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_random" text="1 poulet retirée à cause d'accidents aléatoires"/>
+		<text name="rl_ui_horse_multipleDeaths_random" text="%s chevaux retirées à la suite d'accidents aléatoires et ont été vendus pour %s" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_random" text="1 cheval retirée à la suite d'un accident aléatoire et a été vendu pour %s" tag="format"/>
+	</texts>
+</l10n>

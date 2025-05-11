@@ -1,0 +1,181 @@
+<modDesc descVersion="98">
+    <author>Arrow</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Realistic Livestock</en>
+        <de>Realistischer Viehbestand</de>
+        <fr>Bétail Réaliste</fr>
+    </title>
+    <description>
+        <en>
+    <![CDATA[ This is a complete overhaul to the animal system.
+
+- Github:
+https://github.com/Arrow-kb/FS25_RealisticLivestock
+
+Features:
+
+- Individuality - the old cluster system has been scrapped, and every animal is now completely unique and individual
+
+- Genetics system - all animals have their own unique genetics that are passed down to their children, affecting their value, output, fertility, weight and more
+
+- Weight system - animals will be born at a weight based mainly on their genetics, and will gradually gain weight until adulthood, at which point they will most likely gravitate around a certain weight. As they get older, they may start to lose weight. Weight affects how much they eat, and their sell value
+
+- Male animals - new male animals that are crucial for any livestock farm. Females will require a fertile male in order to get pregnant. Males are worth more than females. Currently, male animals are visually the same as female animals
+
+- "Removal" - animals can now be "removed" due to various factors, including old age, bad health, accidents, bad pregnancies and more. "Removed" animals will not be sold, unless they were "removed" due to an accident
+
+- Aging - animals will now age as they would in real life; their age is no longer capped at 5 years old. An animal's age affects its probability of being "removed", both young and old, and they have life expectancies, which they may rarely surpass
+
+- Pregnancy - pregnant animals have the possibility of giving birth to multiple animals; however they also have the possiblity to be "removed" during pregnancy, including their offspring. Animals also need a couple of months to rest after giving birth before they can get pregnant again. Pregnant animals will also eat much more
+
+- Temperature - animals are more likely to be "removed" when the temperature is too low and sheep will not produce any wool
+
+- Milking - cattle will now only produce milk if they have calved in the past 10 months. Cows have a much more realistic milking curve and they will eat much more when they are being milked
+
+- Visual animals - the limit in the vanilla game for the amount of visual animals (animals that are graphically shown inside a barn/field) is 25. This has now been increased to a maximum of 200 per husbandry (depending on your system's capabilities), with an easy-to-use settings menu to choose how many will be shown
+
+- Family tree - every animal has a family tree, listing their living parents and children. This can be viewed by opening the animal menu trigger next to any husbandry, where you would normally buy and sell animals
+
+- New UI - the UI for animals has been expanded; hovering over an animal in the world will show its vanilla information, as well as advanced statistics. A unique genetics box has also been added beneath the normal animal info box
+
+- Transportation - the transportation price for every animal has been increased greatly. This is done to incentivise you to buy your own transport, as farmers do in real life
+
+- Identification - a new unique identification system, based on the identification technique used for cattle in the UK by real farmers. Every animal has their own unique ID and your farm also has its own unique ID which is used to help generate the animal's ID
+
+- Naming - any animal can now be named in the animal menu, not just horses. You can name them whatever you want, or generate a random name from a completely new list of names
+
+- Statistics - almost every aspect of the base statistics of different breeds has been changed for more variation between breeds. This includes sell price, food and water amounts, production outputs, and more]]>
+</en>
+<de>
+    <![CDATA[ Dies ist eine komplette Überarbeitung des Tiersystems.
+
+- Github:
+https://github.com/Arrow-kb/FS25_RealisticLivestock
+
+Merkmale:
+
+- Individualität - das alte Clustersystem wurde abgeschafft, und jedes Tier ist nun völlig einzigartig und individuell
+
+- Genetiksystem - alle Tiere haben ihre eigene, einzigartige Genetik, die an ihre Kinder weitergegeben wird und sich auf ihren Wert, ihre Leistung, ihre Fruchtbarkeit, ihr Gewicht und mehr auswirkt
+
+- Gewichtssystem - Tiere werden mit einem Gewicht geboren, das hauptsächlich auf ihren Genen beruht, und nehmen bis zum Erwachsenenalter allmählich an Gewicht zu, wobei sie sich höchstwahrscheinlich um ein bestimmtes Gewicht herum bewegen werden. Wenn sie älter werden, verlieren sie möglicherweise an Gewicht. Das Gewicht wirkt sich darauf aus, wie viel sie essen und wie hoch ihr Verkaufswert ist.
+
+- Männliche Tiere - neue männliche Tiere, die für jeden Viehzuchtbetrieb unerlässlich sind. Weibliche Tiere benötigen ein fruchtbares Männchen, um schwanger zu werden. Männliche Tiere sind mehr wert als weibliche. Derzeit sind männliche Tiere optisch gleichwertig mit weiblichen Tieren.
+
+- „Entfernung„ - Tiere können jetzt aufgrund verschiedener Faktoren entfernt“ werden, z. B. aufgrund von Alter, schlechtem Gesundheitszustand, Unfällen, schlechten Schwangerschaften und mehr. „Entfernte“ Tiere werden nicht verkauft, es sei denn, sie wurden aufgrund eines Unfalls ‚entfernt‘.
+
+- Alterung - Tiere altern nun wie im richtigen Leben; ihr Alter ist nicht mehr auf 5 Jahre begrenzt. Das Alter eines Tieres wirkt sich auf die Wahrscheinlichkeit aus, dass es „entfernt“ wird, sowohl jung als auch alt, und sie haben eine Lebenserwartung, die sie nur selten überschreiten können
+
+- Trächtigkeit - Trächtige Tiere haben die Möglichkeit, mehrere Tiere zur Welt zu bringen; sie können jedoch auch während der Trächtigkeit „entnommen“ werden, einschließlich ihrer Nachkommen. Außerdem brauchen die Tiere nach der Geburt ein paar Monate Ruhe, bevor sie wieder trächtig werden können. Trächtige Tiere fressen auch viel mehr
+
+- Temperatur - bei zu niedrigen Temperaturen werden die Tiere eher „abtransportiert“, und die Schafe produzieren keine Wolle
+
+- Melken - Rinder produzieren nur noch Milch, wenn sie in den letzten 10 Monaten gekalbt haben. Kühe haben eine viel realistischere Melkkurve und fressen viel mehr, wenn sie gemolken werden.
+
+- Visuelle Tiere - die Anzahl der visuellen Tiere (Tiere, die grafisch in einem Stall/Feld dargestellt werden) ist im Vanilla-Spiel auf 25 begrenzt. Dies wurde nun auf ein Maximum von 200 Tieren pro Stall erhöht (abhängig von den Fähigkeiten Ihres Systems), mit einem einfach zu bedienenden Einstellungsmenü, um zu wählen, wie viele angezeigt werden sollen.
+
+- Stammbaum - jedes Tier hat einen Stammbaum, in dem seine lebenden Eltern und Kinder aufgeführt sind. Dieser kann eingesehen werden, indem man den Menüpunkt „Tiere“ neben der Tierhaltung öffnet, wo man normalerweise Tiere kaufen und verkaufen würde.
+
+- Neue Benutzeroberfläche - die Benutzeroberfläche für Tiere wurde erweitert; wenn man mit dem Mauszeiger über ein Tier in der Welt fährt, werden seine Vanille-Informationen sowie erweiterte Statistiken angezeigt. Außerdem wurde eine einzigartige Genetik-Box unterhalb der normalen Tier-Infobox hinzugefügt.
+
+- Transport - der Transportpreis für jedes Tier wurde stark erhöht. Damit soll ein Anreiz geschaffen werden, eigene Transporte zu kaufen, so wie es Bauern im echten Leben tun.
+
+- Identifikation - ein neues, einzigartiges Identifikationssystem, das auf der Identifikationstechnik basiert, die in Großbritannien von echten Landwirten für Rinder verwendet wird. Jedes Tier hat seine eigene eindeutige ID, und auch Ihr Betrieb hat seine eigene eindeutige ID, die dazu dient, die ID des Tieres zu generieren.
+
+- Benennung - jedes Tier kann jetzt im Tiermenü benannt werden, nicht nur Pferde. Du kannst sie benennen, wie du willst, oder einen zufälligen Namen aus einer völlig neuen Liste von Namen generieren.
+
+- Statistiken - fast jeder Aspekt der Basisstatistiken der verschiedenen Rassen wurde geändert, um mehr Variation zwischen den Rassen zu ermöglichen. Dazu gehören Verkaufspreise, Futter- und Wassermengen, Produktionsleistungen und vieles mehr.]]>
+</de>
+<fr>
+    <![CDATA[ Il s'agit d'une révision complète du système animalier.
+
+- Github:
+https://github.com/Arrow-kb/FS25_RealisticLivestock
+
+Caractéristiques :
+
+- Individualité - l'ancien système de grappes a été supprimé, et chaque animal est désormais complètement unique et individuel.
+
+- Système génétique : tous les animaux ont un patrimoine génétique unique qui est transmis à leurs enfants et qui affecte leur valeur, leur rendement, leur fertilité, leur poids et bien plus encore.
+
+- Système de poids : les animaux naîtront à un poids basé principalement sur leur génétique et prendront progressivement du poids jusqu'à l'âge adulte, où ils graviteront probablement autour d'un certain poids. En vieillissant, ils peuvent commencer à perdre du poids. Le poids influe sur la quantité de nourriture qu'ils consomment et sur leur valeur de vente.
+
+- Animaux mâles - les nouveaux animaux mâles sont essentiels pour toute ferme d'élevage. Les femelles ont besoin d'un mâle fertile pour tomber enceintes. Les mâles valent plus que les femelles. Actuellement, les animaux mâles ont la même valeur visuelle que les animaux femelles.
+
+- « Retrait » - les animaux peuvent désormais être “retirés” pour diverses raisons, notamment la vieillesse, la mauvaise santé, les accidents, les mauvaises grossesses, etc. Les animaux « retirés » ne seront pas vendus, sauf s'ils ont été « retirés » à la suite d'un accident.
+
+- Vieillissement : les animaux vieillissent désormais comme dans la vie réelle ; leur âge n'est plus limité à 5 ans. L'âge d'un animal influe sur sa probabilité d'être « retiré », qu'il soit jeune ou vieux, et il a une espérance de vie qu'il peut rarement dépasser
+
+- Grossesse - Les animaux en gestation ont la possibilité de donner naissance à plusieurs animaux ; cependant, ils ont également la possibilité d'être « enlevés » pendant la grossesse, y compris leur progéniture. Les animaux ont également besoin de quelques mois de repos après la mise bas avant de pouvoir tomber à nouveau enceintes. Les animaux en gestation mangent également beaucoup plus
+
+- Température - les animaux sont plus susceptibles d'être « enlevés » lorsque la température est trop basse et que les moutons ne produisent pas de laine
+
+- Traite : les bovins ne produiront plus de lait que s'ils ont vêlé au cours des dix derniers mois. La courbe de traite des vaches est beaucoup plus réaliste et elles mangent beaucoup plus lorsqu'elles sont traites.
+
+- Animaux visuels - dans le jeu vanille, la limite du nombre d'animaux visuels (animaux représentés graphiquement à l'intérieur d'une étable ou d'un champ) est fixée à 25. Cette limite a été portée à un maximum de 200 par élevage (en fonction des capacités de votre système), avec un menu de paramétrage facile à utiliser pour choisir le nombre d'animaux affichés.
+
+- Arbre généalogique - chaque animal possède un arbre généalogique, qui répertorie ses parents et ses enfants vivants. Vous pouvez le consulter en ouvrant la gâchette du menu des animaux à côté de n'importe quel élevage, où vous achèteriez et vendriez normalement des animaux.
+
+- Nouvelle interface utilisateur - L'interface utilisateur pour les animaux a été élargie ; en survolant un animal dans le monde, vous verrez ses informations sur la vanille, ainsi que des statistiques avancées. Une boîte génétique unique a également été ajoutée sous la boîte d'information normale de l'animal.
+
+- Transport - le prix du transport pour chaque animal a été considérablement augmenté. Ceci a pour but de vous inciter à acheter vos propres moyens de transport, comme le font les fermiers dans la vie réelle.
+
+- Identification - un nouveau système d'identification unique, basé sur la technique d'identification utilisée pour le bétail au Royaume-Uni par les vrais agriculteurs. Chaque animal a son propre identifiant et votre ferme a également son propre identifiant qui est utilisé pour générer l'identifiant de l'animal.
+
+- Noms - tous les animaux peuvent désormais être nommés dans le menu des animaux, et pas seulement les chevaux. Vous pouvez leur donner le nom que vous voulez ou générer un nom aléatoire à partir d'une toute nouvelle liste de noms.
+
+- Statistiques - Presque tous les aspects des statistiques de base des différentes races ont été modifiés afin d'accroître les variations entre les races. Cela inclut le prix de vente, les quantités de nourriture et d'eau, les rendements de production, et bien plus encore.]]>
+</fr>
+    </description>
+    <iconFilename>icon_RealisticLivestock.dds</iconFilename>
+    <multiplayer supported="false"/>
+    <extraSourceFiles>
+        <sourceFile filename="src/animals/husbandry/cluster/RealisticLivestock_AnimalCluster.lua"/>
+        <sourceFile filename="src/animals/husbandry/cluster/RealisticLivestock_AnimalClusterHusbandry.lua"/>
+        <sourceFile filename="src/animals/husbandry/cluster/RealisticLivestock_AnimalClusterSystem.lua"/>
+        <sourceFile filename="src/animals/husbandry/placeables/RealisticLivestock_PlaceableHusbandryAnimals.lua"/>
+        <sourceFile filename="src/animals/husbandry/placeables/RealisticLivestock_PlaceableHusbandryMilk.lua"/>
+        <sourceFile filename="src/animals/husbandry/placeables/RealisticLivestock_PlaceableHusbandryFood.lua"/>
+        <sourceFile filename="src/animals/husbandry/placeables/RealisticLivestock_PlaceableHusbandryPallets.lua"/>
+        <sourceFile filename="src/animals/husbandry/RealisticLivestock_HusbandrySystem.lua"/>
+        <sourceFile filename="src/animals/husbandry/RealisticLivestock_AnimalNameSystem.lua"/>
+        <sourceFile filename="src/animals/husbandry/RealisticLivestock_AnimalSystem.lua"/>
+        <sourceFile filename="src/animals/shop/controllers/AnimalScreenBase.lua"/>
+        <sourceFile filename="src/animals/shop/controllers/AnimalScreenDealer.lua"/>
+        <sourceFile filename="src/animals/shop/controllers/AnimalScreenDealerFarm.lua"/>
+        <sourceFile filename="src/animals/shop/controllers/AnimalScreenDealerTrailer.lua"/>
+        <sourceFile filename="src/animals/shop/controllers/AnimalScreenTrailer.lua"/>
+        <sourceFile filename="src/animals/shop/controllers/AnimalScreenTrailerFarm.lua"/>
+        <sourceFile filename="src/animals/shop/events/RealisticLivestock_AnimalSellEvent.lua"/>
+        <sourceFile filename="src/animals/shop/AnimalItemNew.lua"/>
+        <sourceFile filename="src/animals/shop/RealisticLivestock_AnimalItemStock.lua"/>
+        <sourceFile filename="src/farms/FarmManager.lua"/>
+        <sourceFile filename="src/farms/RealisticLivestock_FarmStats.lua"/>
+        <sourceFile filename="src/fillTypes/RealisticLivestock_FillTypeManager.lua"/>
+        <sourceFile filename="src/gui/RealisticLivestock_AnimalScreen.lua"/>
+        <sourceFile filename="src/gui/VisualAnimalsDialog.lua"/>
+        <sourceFile filename="src/gui/NameInputDialog.lua"/>
+        <sourceFile filename="src/gui/AnimalInfoDialog.lua"/>
+        <sourceFile filename="src/gui/RL_InfoDisplayKeyValueBox.lua"/>
+        <sourceFile filename="src/gui/RealisticLivestock_InGameMenuAnimalsFrame.lua"/>
+        <sourceFile filename="src/placeables/RealisticLivestock_PlaceableSystem.lua"/>
+        <sourceFile filename="src/player/RealisticLivestock_PlayerHUDUpdater.lua"/>
+        <sourceFile filename="src/player/RealisticLivestock_PlayerInputComponent.lua"/>
+        <sourceFile filename="src/vehicles/specializations/RealisticLivestock_LivestockTrailer.lua"/>
+        <sourceFile filename="src/vehicles/RealisticLivestock_VehicleSystem.lua"/>
+        <sourceFile filename="src/FSCareerMissionInfo.lua"/>
+        <sourceFile filename="src/RealisticLivestock.lua"/>
+        <sourceFile filename="src/RealisticLivestock_Animal.lua"/>
+        <sourceFile filename="src/RealisticLivestock_FSBaseMission.lua"/>
+    </extraSourceFiles>
+    <l10n filenamePrefix="translations/translation"/>
+    <inputBinding>
+        <actionBinding action="VisualAnimalsDialog">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lshift KEY_t"/>
+        </actionBinding>
+    </inputBinding>
+    <actions>
+        <action name="VisualAnimalsDialog"/>
+    </actions>
+</modDesc>
