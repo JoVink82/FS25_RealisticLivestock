@@ -1,0 +1,472 @@
+RealisticLivestock_AnimalScreen = {}
+
+
+
+-- #################################################################################
+
+-- NOTES:
+
+-- the AnimalScreenDealer controller is really pissing me off
+-- so now i disable it
+-- inconsequential, who cares
+
+-- #################################################################################
+
+
+function RealisticLivestock_AnimalScreen.show(husbandry, vehicle, isDealer)
+
+    if husbandry == nil and vehicle == nil then return end
+
+	g_animalScreen:setController(husbandry, vehicle, isDealer)
+	g_gui:showGui("AnimalScreen")
+
+end
+
+AnimalScreen.show = RealisticLivestock_AnimalScreen.show
+
+
+function RealisticLivestock_AnimalScreen:onClickBuyMode(a, b)
+    self.isInfoMode = false
+end
+
+AnimalScreen.onClickBuyMode = Utils.prependedFunction(AnimalScreen.onClickBuyMode, RealisticLivestock_AnimalScreen.onClickBuyMode)
+
+
+function RealisticLivestock_AnimalScreen:onClickSellMode(a, b)
+    self.isInfoMode = false
+end
+
+AnimalScreen.onClickSellMode = Utils.prependedFunction(AnimalScreen.onClickSellMode, RealisticLivestock_AnimalScreen.onClickSellMode)
+
+
+
+function RealisticLivestock_AnimalScreen:onPageNext(superFunc)
+    if self.isBuyMode then
+        self:onClickSellMode()
+    elseif not self.isInfoMode then
+        self:onClickInfoMode()
+    else
+        self:onClickBuyMode()
+    end
+end
+
+AnimalScreen.onPageNext = Utils.overwrittenFunction(AnimalScreen.onPageNext, RealisticLivestock_AnimalScreen.onPageNext)
+
+
+function RealisticLivestock_AnimalScreen:onPagePrevious(superFunc)
+    if self.isBuyMode then
+        self:onClickInfoMode()
+    elseif not self.isInfoMode then
+        self:onClickBuyMode()
+    else
+        self:onClickSellMode()
+    end
+end
+
+AnimalScreen.onPagePrevious = Utils.overwrittenFunction(AnimalScreen.onPagePrevious, RealisticLivestock_AnimalScreen.onPagePrevious)
+
+
+function RealisticLivestock_AnimalScreen:onClickRename()
+
+    local item = self.controller:getTargetItems()[self.sourceList.selectedIndex]
+    if item == nil or item.cluster == nil then return end
+
+    local dialog = NameInputDialog.INSTANCE
+    local name = item.cluster.name or g_currentMission.animalNameSystem:getRandomName(item.cluster.gender)
+    dialog:setCallback(self.changeName, self, name, nil, 30, nil, item.cluster.gender)
+    g_gui:showDialog("NameInputDialog")
+
+end
+
+AnimalScreen.onClickRename = RealisticLivestock_AnimalScreen.onClickRename
+
+
+function RealisticLivestock_AnimalScreen:changeName(text, clickOk)
+
+    if clickOk then
+        g_animalScreen.controller:getTargetItems()[g_animalScreen.sourceList.selectedIndex].cluster.name = text ~= "" and text or nil
+        g_animalScreen:updateInfoBox()
+    end
+
+end
+
+AnimalScreen.changeName = RealisticLivestock_AnimalScreen.changeName
+
+-- #################################################################################
+
+-- NOTES:
+
+-- sourceList:setSelectedItem() changes the selected animal in the leftmost animal list
+-- targetSelector buttons change the arrow buttons visibility at the top
+
+-- #################################################################################
+
+function RealisticLivestock_AnimalScreen:onClickAnimalInfo(button)
+
+    local item = self.controller:getTargetItems()[self.sourceList.selectedIndex]
+    local animalType = item.cluster.animalTypeIndex
+
+    if button.id == "childInfoButton" then
+        if item == nil or item.cluster == nil then return end
+        local children = item.cluster.children
+        if children == nil or #children == 0 then return end
+
+        AnimalInfoDialog.show(children[1].farmId, children[1].uniqueId, children, animalType)
+
+        return
+    end
+
+    local target = button.id == "motherInfoButton" and "mother" or "father"
+
+    if item == nil or target == nil then return end
+
+    local uniqueId = item.cluster[target .. "Id"]
+
+    if uniqueId == "-1" then return end
+
+    local farmId = ""
+    local i = string.find(uniqueId, " ")
+
+    farmId = string.sub(uniqueId, 1, i - 1)
+    uniqueId = string.sub(uniqueId, i + 1)
+
+    if uniqueId == nil or farmId == nil then return end
+
+    AnimalInfoDialog.show(farmId, uniqueId, nil, animalType)
+
+end
+
+AnimalScreen.onClickAnimalInfo = RealisticLivestock_AnimalScreen.onClickAnimalInfo
+
+
+function RealisticLivestock_AnimalScreen:onClickInfoMode(a, b)
+
+    self.isInfoMode = true
+    self.isBuyMode = false
+    self.targetSelector.leftButtonElement:setVisible(false)
+    self.targetSelector.rightButtonElement:setVisible(false)
+    self:initSubcategories()
+
+    self.sourceList:setSelectedItem(1, 1, nil, true)
+    self.sourceSelector:setState(1, true)
+    self.isAutoUpdatingList = a
+    self:updateScreen()
+    self.isAutoUpdatingList = false
+    self:setSelectionState(AnimalScreen.SELECTION_SOURCE, true)
+
+end
+
+AnimalScreen.onClickInfoMode = RealisticLivestock_AnimalScreen.onClickInfoMode
+
+
+function RealisticLivestock_AnimalScreen:updateInfoBox(superFunc, isSourceSelected)
+
+    if not g_gui.currentlyReloading then
+
+        --if isSourceSelected == nil then
+            --local _ = self.isSourceSelected
+        --end
+
+        local animalType = self.sourceSelectorStateToAnimalType[self.sourceSelector:getState()]
+        local item
+
+        if self.isBuyMode then
+            item = self.controller:getSourceItems(animalType, self.isBuyMode)[self.sourceList.selectedIndex]
+        else
+            item = self.controller:getTargetItems()[self.sourceList.selectedIndex]
+        end
+
+        self.infoIcon:setVisible(item ~= nil)
+        self.infoName:setVisible(item ~= nil)
+        if item ~= nil then
+
+            self.infoIcon:setImageFilename(item:getFilename())
+            self.infoDescription:setText(item:getDescription())
+            local subType = g_currentMission.animalSystem:getSubTypeByIndex(item:getSubTypeIndex())
+            local fillTypeTitle = g_fillTypeManager:getFillTypeTitleByIndex(subType.fillTypeIndex)
+            self.infoName:setText(fillTypeTitle)
+            local infos = item:getInfos()
+
+            for k, infoTitle in ipairs(self.infoTitle) do
+                local info = infos[k]
+                local infoValue = self.infoValue[k]
+                infoTitle:setVisible(info ~= nil)
+                infoValue:setVisible(info ~= nil)
+                if info ~= nil then
+                    infoTitle:setText(info.title)
+                    infoValue:setText(info.value)
+
+                    if info.colour ~= nil then
+                        infoTitle:setTextColor(info.colour[1], info.colour[2], info.colour[3], 1)
+                        infoValue:setTextColor(info.colour[1], info.colour[2], info.colour[3], 1)
+                    else
+                        infoTitle:setTextColor(1, 1, 1, 1)
+                        infoValue:setTextColor(1, 1, 1, 1)
+                    end
+                end
+            end
+
+            if self.isInfoMode then
+
+                self.motherInfoButton:setDisabled(item.cluster.motherId == nil or item.cluster.motherId == "-1")
+                self.motherInfoButton:setText(g_i18n:getText("rl_ui_mother") .. " (" .. ((item.cluster.motherId == nil or item.cluster.motherId == "-1") and g_i18n:getText("rl_ui_unknown") or item.cluster.motherId) .. ")")
+
+                self.fatherInfoButton:setDisabled(item.cluster.fatherId == nil or item.cluster.fatherId == "-1")
+                self.fatherInfoButton:setText(g_i18n:getText("rl_ui_father") .. " (" .. ((item.cluster.fatherId == nil or item.cluster.fatherId == "-1") and g_i18n:getText("rl_ui_unknown") or item.cluster.fatherId) .. ")")
+
+                self.childInfoButton:setDisabled(not item.cluster.isParent)
+
+                local genetics = item.cluster:addGeneticsInfo()
+
+                for i, title in ipairs(self.geneticsTitle) do
+                    local value = self.geneticsValue[i]
+
+                    title:setVisible(genetics[i] ~= nil)
+                    value:setVisible(genetics[i] ~= nil)
+
+                    if genetics[i] == nil then continue end
+
+                    title:setText(genetics[i].title)
+                    value:setText(g_i18n:getText(genetics[i].text))
+
+                    local quality = genetics[i].text
+
+                    if quality == "rl_ui_genetics_extremelyLow" or quality == "rl_ui_genetics_extremelyBad" then
+                        title:setTextColor(1, 0, 0, 1)
+                        value:setTextColor(1, 0, 0, 1)
+                    elseif quality == "rl_ui_genetics_veryLow" or quality == "rl_ui_genetics_veryBad" then
+                        title:setTextColor(1, 0.2, 0, 1)
+                        value:setTextColor(1, 0.2, 0, 1)
+                    elseif quality == "rl_ui_genetics_low" or quality == "rl_ui_genetics_bad" then
+                        title:setTextColor(1, 0.52, 0, 1)
+                        value:setTextColor(1, 0.52, 0, 1)
+                    elseif quality == "rl_ui_genetics_average" then
+                        title:setTextColor(1, 1, 0, 1)
+                        value:setTextColor(1, 1, 0, 1)
+                    elseif quality == "rl_ui_genetics_high" or quality == "rl_ui_genetics_good" then
+                        title:setTextColor(0.52, 1, 0, 1)
+                        value:setTextColor(0.52, 1, 0, 1)
+                    elseif quality == "rl_ui_genetics_veryHigh" or quality == "rl_ui_genetics_veryGood" then
+                        title:setTextColor(0.2, 1, 0, 1)
+                        value:setTextColor(0.2, 1, 0, 1)
+                    else
+                        title:setTextColor(0, 1, 0, 1)
+                        value:setTextColor(0, 1, 0, 1)
+                    end
+
+
+                end
+
+            end
+
+            if not Platform.isMobile then self:updatePrice() end
+
+
+            self.infoBox:setVisible(not self.isInfoMode)
+            self.numAnimalsBox:setVisible(not self.isInfoMode)
+            self.parentBox:setVisible(self.isInfoMode and not self.isBuyMode)
+            self.geneticsBox:setVisible(self.isInfoMode)
+            self.buttonRename:setVisible(self.isInfoMode)
+
+        end
+
+    end
+
+end
+
+AnimalScreen.updateInfoBox = Utils.overwrittenFunction(AnimalScreen.updateInfoBox, RealisticLivestock_AnimalScreen.updateInfoBox)
+
+
+function RealisticLivestock_AnimalScreen:updateScreen(superFunc, keepSelection)
+
+
+    self.isAutoUpdatingList = true
+    self.sourceList:reloadData(true)
+    self.isAutoUpdatingList = false
+
+    local v77, v78
+
+    if self.isBuyMode then
+        v77, v78 = self.controller:getSourceData(self.sourceSelector:getState())
+    else
+        v77, v78 = self.controller:getTargetData(self.sourceSelector:getState())
+    end
+
+    self.targetText:setText(v78)
+    self.targetItems = v77
+    local v79 = {}
+
+    for _, v80 in pairs(v77) do
+        local animalType = g_currentMission.animalSystem:getTypeByIndex(self.sourceSelectorStateToAnimalType[self.sourceSelector:getState()])
+        local maxAnimalString = " (" .. v80:getNumOfAnimals() .. "/" .. v80:getMaxNumOfAnimals(animalType) .. ")"
+        local husbandryString = v80:getName() .. maxAnimalString
+        table.insert(v79, husbandryString)
+    end
+
+
+    self.targetSelector:setTexts(v79)
+
+    if not keepSelection and #v77 > 0 then
+        self.targetSelector:setState(1)
+        self:setSelectionState(AnimalScreen.SELECTION_SOURCE)
+    end
+        self:onTargetSelectionChanged(true)
+
+    local hasAnimals = self.sourceList:getItemCount() > 0
+
+
+    self.detailsContainer:setVisible(hasAnimals)
+    self.infoBox:setVisible(not self.isInfoMode)
+    self.numAnimalsBox:setVisible(not self.isInfoMode)
+    self.parentBox:setVisible(self.isInfoMode)
+    self.geneticsBox:setVisible(self.isInfoMode)
+
+    if self.isInfoMode then
+        self.buttonBuy:setVisible(false)
+        self.buttonSell:setVisible(false)
+    else
+
+        local isItemSelected = self.numAnimalsElement:getIsFocused()
+
+        self.buttonBuy:setVisible(self.isBuyMode and isItemSelected)
+        self.buttonSell:setVisible(isItemSelected and not self.isBuyMode)
+        self.buttonSelect:setVisible(not isItemSelected)
+
+    end
+
+
+    self.buttonBuy:setDisabled(not self.isBuyMode)
+    self.buttonBuy:setVisible(not self.isInfoMode and self.isBuyMode)
+    self.buttonSell:setDisabled(self.isInfoMode or self.isBuyMode)
+    self.buttonSell:setVisible(not self.isInfoMode and not self.isBuyMode)
+    self.buttonRename:setVisible(self.isInfoMode)
+
+    if hasAnimals then
+        self:updatePrice()
+        self:updateInfoBox()
+    end
+
+    self.tabBuy:setSelected(self.isBuyMode and not self.isInfoMode)
+    self.tabSell:setSelected(not self.isBuyMode and not self.isInfoMode)
+    self.tabInfo:setSelected(not self.isBuyMode and self.isInfoMode)
+
+    self.buttonsPanel:invalidateLayout()
+
+end
+
+AnimalScreen.updateScreen = Utils.overwrittenFunction(AnimalScreen.updateScreen, RealisticLivestock_AnimalScreen.updateScreen)
+
+
+function RealisticLivestock_AnimalScreen:setMaxNumAnimals()
+
+    self.infoBox:setVisible(not self.isInfoMode)
+    self.numAnimalsBox:setVisible(not self.isInfoMode)
+    self.parentBox:setVisible(self.isInfoMode and not self.isBuyMode)
+    self.geneticsBox:setVisible(self.isInfoMode)
+
+end
+
+AnimalScreen.setMaxNumAnimals = Utils.prependedFunction(AnimalScreen.setMaxNumAnimals, RealisticLivestock_AnimalScreen.setMaxNumAnimals)
+
+
+function RealisticLivestock_AnimalScreen:getCellTypeForItemInSection(_, list, _, index)
+
+    if list ~= self.sourceList then return nil end
+
+    local animalTypeIndex = self.sourceSelectorStateToAnimalType[self.sourceSelector:getState()]
+	local items
+
+	if self.isInfoMode or not self.isBuyMode then
+        items = self.controller:getTargetItems()
+	else
+		items = self.controller:getSourceItems(animalTypeIndex, self.isBuyMode)
+	end
+
+	local a = items[index]
+	local b = items[index - 1]
+
+	return (a == nil or b == nil or a:getSubTypeIndex() ~= b:getSubTypeIndex()) and "sectionCell" or "defaultCell"
+
+end
+
+AnimalScreen.getCellTypeForItemInSection = Utils.overwrittenFunction(AnimalScreen.getCellTypeForItemInSection, RealisticLivestock_AnimalScreen.getCellTypeForItemInSection)
+
+
+function RealisticLivestock_AnimalScreen:populateCellForItemInSection(_, list, _, index, cell)
+
+    local animalType = self.sourceSelectorStateToAnimalType[self.sourceSelector:getState()]
+
+    if list == self.sourceList then
+
+        local item
+
+
+        if self.isBuyMode then
+            item = self.controller:getSourceItems(animalType, self.isBuyMode)[index]
+        else
+            item = self.controller:getTargetItems()[index]
+        end
+
+        if item == nil then return end
+
+        local subType = g_currentMission.animalSystem:getSubTypeByIndex(item:getSubTypeIndex())
+        self.isHorse = subType.typeIndex == AnimalType.HORSE
+
+        if cell.name == "sectionCell" then
+            cell:getAttribute("title"):setText(g_fillTypeManager:getFillTypeTitleByIndex(subType.fillTypeIndex))
+        end
+
+        self.isHorse = g_currentMission.animalSystem:getSubTypeByIndex(item:getSubTypeIndex()).typeIndex == AnimalType.HORSE
+        
+        local name = item:getName()
+
+        if not self.isHorse and (not self.isBuyMode or (self.controller.trailer ~= nil and self.controller.husbandry ~= nil and self.isBuyMode)) and item.cluster.uniqueId ~= nil then name = item.cluster.uniqueId .. (name == "" and "" or (" (" .. name .. ")")) end
+
+        cell:getAttribute("name"):setText(name)
+
+        cell:getAttribute("icon"):setImageFilename(item:getFilename())
+        cell:getAttribute("price"):setValue(item:getPrice())
+
+        cell:getAttribute("amount"):setValue("")
+        cell:getAttribute("amount"):setText("")
+
+    else
+
+        if list == self.targetList then
+
+            local item
+
+            if self.isBuyMode then
+                item = self.controller:getTargetItems()[index]
+            else
+                item = self.controller:getSourceItems(animalType, self.isBuyMode)[index]
+            end
+
+            if item == nil then return end
+
+
+            self.isHorse = g_currentMission.animalSystem:getSubTypeByIndex(item:getSubTypeIndex()).typeIndex == AnimalType.HORSE
+
+
+            local name = item:getName()
+
+            if not self.isHorse and not self.isBuyMode and item.cluster ~= nil and item.cluster.uniqueId ~= nil then name = item.cluster.uniqueId .. (name == "" and "" or (" (" .. name .. ")")) end
+
+            cell:getAttribute("name"):setText(name)
+
+
+            cell:getAttribute("icon"):setImageFilename(item:getFilename())
+            cell:getAttribute("separator"):setVisible(index > 1)
+
+            cell:getAttribute("amount"):setValue("")
+            cell:getAttribute("amount"):setText("")
+
+        end
+
+        return
+
+    end
+
+end
+
+AnimalScreen.populateCellForItemInSection = Utils.overwrittenFunction(AnimalScreen.populateCellForItemInSection, RealisticLivestock_AnimalScreen.populateCellForItemInSection)
