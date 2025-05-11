@@ -9,8 +9,8 @@ function RL_FarmManager:loadFromXMLFile(superFunc, path)
     animalSystem:initialiseCountries()
 
     if g_currentMission:getIsServer() then
-        animalSystem:loadFromXMLFile()
-        animalSystem:validateFarms()
+        local hasData = animalSystem:loadFromXMLFile()
+        animalSystem:validateFarms(hasData)
     end
 
     return returnValue
