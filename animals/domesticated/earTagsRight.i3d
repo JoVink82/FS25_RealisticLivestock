@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<i3D name="earTagsRight.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="GIANTS Editor 64bit" version="10.0.4"/>
+  </Asset>
+
+  <Files>
+    <File fileId="1" filename="earTags_diffuse.dds"/>
+    <File fileId="3" filename="font_normal.dds"/>
+    <File fileId="4" filename="offsetUV.xml"/>
+  </Files>
+
+
+  <Materials>
+    <Material name="Material.001" materialId="5" specularColor="1 1 0">
+      <Texture fileId="1"/>
+    </Material>
+    <Material name="Material.002" materialId="6" specularColor="1 1 0" customShaderId="4">
+      <Texture fileId="3"/>
+      <CustomParameter name="playScale" value="0 0 38 1"/>
+    </Material>
+    <Material name="Material.002" materialId="7" specularColor="1 1 0" customShaderId="4">
+      <Texture fileId="3"/>
+      <CustomParameter name="playScale" value="36 0 38 1"/>
+    </Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="earTagsRight.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <Shape name="earTagRight" scale="1 0.9 0.9" shapeId="1" clipDistance="300" nodeId="28" castsShadows="true" receiveShadows="true" materialIds="5">
+      <Shape name="animalNameBack" translation="0 0.028 0" shapeId="2" clipDistance="300" nodeId="29" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="animalNameFront" translation="0 0.028 0" shapeId="3" clipDistance="300" nodeId="30" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthYearBack1" shapeId="4" clipDistance="300" nodeId="31" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthDayBack1" shapeId="5" clipDistance="300" nodeId="32" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthDayBack2" shapeId="6" clipDistance="300" nodeId="33" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthDayFront1" shapeId="7" clipDistance="300" nodeId="34" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthDayFront2" shapeId="8" clipDistance="300" nodeId="35" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthMonthBack1" shapeId="9" clipDistance="300" nodeId="36" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthMonthBack2" shapeId="10" clipDistance="300" nodeId="37" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthMonthFront1" shapeId="11" clipDistance="300" nodeId="38" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthMonthFront2" shapeId="12" clipDistance="300" nodeId="39" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthSepBack1" shapeId="13" clipDistance="300" nodeId="40" castsShadows="true" receiveShadows="true" materialIds="7"/>
+      <Shape name="birthSepBack2" shapeId="14" clipDistance="300" nodeId="41" castsShadows="true" receiveShadows="true" materialIds="7"/>
+      <Shape name="birthSepFront1" shapeId="15" clipDistance="300" nodeId="42" castsShadows="true" receiveShadows="true" materialIds="7"/>
+      <Shape name="birthSepFront2" shapeId="16" clipDistance="300" nodeId="43" castsShadows="true" receiveShadows="true" materialIds="7"/>
+      <Shape name="birthYearBack2" shapeId="17" clipDistance="300" nodeId="44" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthYearFront1" shapeId="18" clipDistance="300" nodeId="45" castsShadows="true" receiveShadows="true" materialIds="6"/>
+      <Shape name="birthYearFront2" shapeId="19" clipDistance="300" nodeId="46" castsShadows="true" receiveShadows="true" materialIds="6"/>
+    </Shape>
+  </Scene>
+
+</i3D>
