@@ -1,6 +1,6 @@
 # FS25_RealisticLivestock
 
-Realistic Livestock mod for FS25, coming shortly.
+Realistic Livestock mod for FS25.
 
 Please note that due to the complexity of the mod (it is several tens of thousands of lines of code), it does not currently support MP but this is planned
 
