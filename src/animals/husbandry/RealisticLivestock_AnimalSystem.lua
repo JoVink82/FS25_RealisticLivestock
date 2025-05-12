@@ -331,7 +331,7 @@ function AnimalSystem:loadFromXMLFile()
             local animalTypeIndex = animal.animalTypeIndex
 
             animal.sale = {
-                ["day"] = xmlFile:getInt(key .. ".sale#day"),
+                ["day"] = xmlFile:getInt(key .. ".sale#day", 1),
                 --["month"] = xmlFile:getInt(key .. ".sale#month"),
                 --["year"] = xmlFile:getInt(key .. ".sale#year")
             }
@@ -384,7 +384,9 @@ function AnimalSystem:saveToXMLFile(path)
 
     for _, animals in pairs(self.animals) do
 
-        for _, animal in pairs(animals) do table.insert(allAnimals, animal) end
+        for _, animal in pairs(animals) do
+            if animal.sale ~= nil and animal.sale.day ~= nil then table.insert(allAnimals, animal) end
+        end
         
     end
 
