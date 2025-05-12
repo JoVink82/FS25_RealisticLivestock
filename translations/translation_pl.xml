@@ -87,8 +87,8 @@
         <text name="rl_ui_uniqueId" text="Unikalny identyfikator"/>
         <text name="rl_ui_farmId" text="Identyfikator gospodarstwa"/>
         <text name="rl_ui_gender" text="Płeć"/>
-        <text name="rl_ui_male" text="Mężczyzna"/>
-        <text name="rl_ui_female" text="Kobieta"/>
+        <text name="rl_ui_male" text="Samiec"/>
+        <text name="rl_ui_female" text="Samica"/>
 		<text name="rl_ui_weight" text="Waga"/>
 		<text name="rl_ui_targetWeight" text="Waga docelowa"/>
 		<text name="rl_ui_value" text="Wartość"/>
