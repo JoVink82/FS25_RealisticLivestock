@@ -21,8 +21,41 @@ AnimalScreenDealerTrailer.initTargetItems = Utils.overwrittenFunction(AnimalScre
 
 function RL_AnimalScreenDealerTrailer:initSourceItems(_)
 
-    local animalTypeIndex = self.trailer:getCurrentAnimalType()
-    local animals = g_currentMission.animalSystem:getSaleAnimalsByTypeIndex(animalTypeIndex)
+    local animalSystem = g_currentMission.animalSystem
+    local animalType = self.trailer:getCurrentAnimalType()
+
+    if animalType == nil then
+
+        local animalTypes = animalSystem:getTypes()
+        self.sourceItems = {}
+
+        for _, type in pairs(animalTypes) do
+
+            local animalTypeIndex = type.typeIndex
+
+            if not self.trailer:getSupportsAnimalType(animalTypeIndex) then continue end
+
+            local animals = animalSystem:getSaleAnimalsByTypeIndex(animalTypeIndex)
+
+            for _, animal in pairs(animals) do
+
+                if self.sourceItems[animalTypeIndex] == nil then self.sourceItems[animalTypeIndex] = {} end
+
+                local item = AnimalItemNew.new(animal)
+                table.insert(self.sourceItems[animalTypeIndex], item)
+
+            end
+
+            if self.sourceItems[animalTypeIndex] ~= nil then table.sort(self.sourceItems[animalTypeIndex], RL_AnimalScreenBase.sortSaleAnimals) end
+
+        end
+
+        return
+
+    end
+
+    local animalTypeIndex = animalType.typeIndex
+    local animals = animalSystem:getSaleAnimalsByTypeIndex(animalTypeIndex)
     
     self.sourceItems = { [animalTypeIndex] = {} }
 
@@ -38,6 +71,26 @@ end
 AnimalScreenDealerTrailer.initSourceItems = Utils.overwrittenFunction(AnimalScreenDealerTrailer.initSourceItems, RL_AnimalScreenDealerTrailer.initSourceItems)
 
 
+function RL_AnimalScreenDealerTrailer:getSourceAnimalTypes()
+
+    local currentAnimalType = self.trailer:getCurrentAnimalType()
+
+	if currentAnimalType ~= nil then return { currentAnimalType } end
+
+	local types = g_currentMission.animalSystem:getTypes()
+	local sourceTypes = {}
+
+	for _, type in ipairs(types) do
+		if self.trailer:getSupportsAnimalType(type.typeIndex) and self.sourceItems[type.typeIndex] ~= nil then table.insert(sourceTypes, type) end
+	end
+
+	return sourceTypes
+
+end
+
+AnimalScreenDealerTrailer.getSourceAnimalTypes = Utils.overwrittenFunction(AnimalScreenDealerTrailer.getSourceAnimalTypes, RL_AnimalScreenDealerTrailer.getSourceAnimalTypes)
+
+
 function RL_AnimalScreenDealerTrailer:getSourceMaxNumAnimals(_, _)
 
     return 1
@@ -51,7 +104,7 @@ function RL_AnimalScreenDealerTrailer:applySource(_, animalTypeIndex, animalInde
 
     local item = self.sourceItems[animalTypeIndex][animalIndex]
     local trailer = self.trailer
-    local ownerFarmId = husbandry:getOwnerFarmId()
+    local ownerFarmId = trailer:getOwnerFarmId()
 
     local price = -item:getPrice()
 	local transportationFee = -item:getTranportationFee(1)

@@ -18,6 +18,8 @@ function RealisticLivestock_AnimalSellEvent:run(connection)
                 local husbandry = tonumber(string.sub(animal.idFull, 1, sep - 1))
                 local animalId = tonumber(string.sub(animal.idFull, sep + 1))
 
+                if husbandry == 0 or animalId == 0 then return end
+
                 removeHusbandryAnimal(husbandry, animalId)
 
                 local clusterHusbandry = spec.clusterHusbandry
