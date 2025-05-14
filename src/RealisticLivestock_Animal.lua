@@ -367,7 +367,7 @@ function Animal.loadFromXMLFile(xmlFile, key, clusterSystem, isLegacy)
 
         xmlFile:iterate(pregnancyKey .. ".pregnancies.pregnancy", function (_, pregnanciesKey)
 
-            local child = Animal.loadFromXMLFile(xmlFile, pregnanciesKey)
+            local child = Animal.loadFromXMLFile(xmlFile, pregnanciesKey, nil, isLegacy)
 
             table.insert(pregnancy.pregnancies, child)
 
@@ -498,7 +498,7 @@ function Animal:saveToXMLFile(xmlFile, key)
         
             xmlFile:setFloat(index .. "#health", child.health)
             xmlFile:setString(index .. "#gender", child.gender)
-            xmlFile:setInt(index .. "#subType", child.subTypeIndex)
+            xmlFile:setString(index .. "#subType", child.subType)
             xmlFile:setString(index .. "#motherId", child.motherId)
             xmlFile:setString(index .. "#fatherId", child.fatherId)
 
