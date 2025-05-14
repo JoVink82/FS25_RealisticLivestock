@@ -17,6 +17,8 @@ function RealisticLivestock_AnimalScreen.show(husbandry, vehicle, isDealer)
 
     if husbandry == nil and vehicle == nil then return end
 
+    g_animalScreen.isTrailerFarm = husbandry ~= nil and vehicle ~= nil
+
 	g_animalScreen:setController(husbandry, vehicle, isDealer)
 	g_gui:showGui("AnimalScreen")
 
@@ -27,6 +29,10 @@ AnimalScreen.show = RealisticLivestock_AnimalScreen.show
 
 function RealisticLivestock_AnimalScreen:onClickBuyMode(a, b)
     self.isInfoMode = false
+    self.selectedItems = {}
+    self.pendingBulkTransaction = nil
+
+    self.buttonBuySelected:setText(self.isTrailerFarm and g_i18n:getText("rl_ui_moveSelected") or g_i18n:getText("rl_ui_buySelected"))
 end
 
 AnimalScreen.onClickBuyMode = Utils.prependedFunction(AnimalScreen.onClickBuyMode, RealisticLivestock_AnimalScreen.onClickBuyMode)
@@ -34,6 +40,10 @@ AnimalScreen.onClickBuyMode = Utils.prependedFunction(AnimalScreen.onClickBuyMod
 
 function RealisticLivestock_AnimalScreen:onClickSellMode(a, b)
     self.isInfoMode = false
+    self.selectedItems = {}
+    self.pendingBulkTransaction = nil
+
+    self.buttonBuySelected:setText(self.isTrailerFarm and g_i18n:getText("rl_ui_moveSelected") or g_i18n:getText("rl_ui_sellSelected"))
 end
 
 AnimalScreen.onClickSellMode = Utils.prependedFunction(AnimalScreen.onClickSellMode, RealisticLivestock_AnimalScreen.onClickSellMode)
@@ -84,7 +94,147 @@ AnimalScreen.onClickRename = RealisticLivestock_AnimalScreen.onClickRename
 function RealisticLivestock_AnimalScreen:changeName(text, clickOk)
 
     if clickOk then
-        g_animalScreen.controller:getTargetItems()[g_animalScreen.sourceList.selectedIndex].cluster.name = text ~= "" and text or nil
+        local animal = g_animalScreen.controller:getTargetItems()[g_animalScreen.sourceList.selectedIndex].cluster
+        
+        if animal ~= nil then
+
+            text = text ~= "" and text or nil
+            animal.name = text
+
+            local visualData = g_currentMission.animalSystem:getVisualByAge(animal.subTypeIndex, animal.age)
+
+            if visualData.earTagRight ~= nil and animal.idFull ~= nil and animal.idFull ~= "1-1" then
+
+                local sep = string.find(animal.idFull, "-")
+                local husbandry = tonumber(string.sub(animal.idFull, 1, sep - 1))
+                local animalId = tonumber(string.sub(animal.idFull, sep + 1))
+
+                if husbandry ~= 0 and animalId ~= 0 then
+
+                    local rootNode = getAnimalRootNode(husbandry, animalId)
+
+                    if rootNode ~= 0 then
+
+                        local earTagNode = I3DUtil.indexToObject(rootNode, visualData.earTagRight)
+
+                        if earTagNode ~= nil and earTagNode ~= 0 then
+
+                            local numExistingCharacters = getNumOfChildren(earTagNode) - 18
+
+                            local templateNodeFront = getChild(earTagNode, "animalNameFront")
+                            local templateNodeBack = getChild(earTagNode, "animalNameBack")
+
+                            setTranslation(templateNodeFront, 0, 0.028, 0)
+                            setTranslation(templateNodeBack, 0, 0.028, 0)
+                            setScale(templateNodeFront, 1, 1, 1)
+                            setScale(templateNodeBack, 1, 1, 1)
+
+                            for i = 1, numExistingCharacters / 2 do
+
+                                local fnode = getChild(earTagNode, "animalNameFront_" .. i)
+                                local bnode = getChild(earTagNode, "animalNameBack_" .. i)
+
+                                delete(fnode)
+                                delete(bnode)
+
+                            end
+
+
+                            if text == nil then
+
+                                setVisibility(templateNodeFront, false)
+                                setVisibility(templateNodeBack, false)
+
+                            else
+
+                                local animalNameLength = string.len(text)
+
+                                local fnx, fny, fnz = getTranslation(templateNodeFront)
+                                local bnx, bny, bnz = getTranslation(templateNodeBack)
+
+                                local sx, sy, sz
+
+                                local words = string.split(text, " ")
+                                local currentWord = 1
+
+                                if #words == 1 then
+                                    fny = fny - 0.012
+                                    bny = bny - 0.012
+                                end
+
+                                local nodeNameCharacterIndex = 1
+
+                                for wordIndex = 1, #words do
+
+                                    local word = words[wordIndex]
+                                    local characterOffset = 0.054 / #word
+                                    local characterScale = 0
+
+                                    if #word > 6 then
+                                
+                                        sx, sy, sz = getScale(templateNodeFront)
+                                        characterScale = math.min((#word - 6) * 0.02, 0.2)
+
+                                    end
+
+                                    for earTagIndex = 1, #word do
+
+                                        local character = string.sub(word, earTagIndex, earTagIndex)
+                                        local characterIndex = RealisticLivestock.ALPHABET[character:upper()]
+
+                                        if wordIndex == 1 and earTagIndex == 1 then
+
+                                            setTranslation(templateNodeFront, fnx, fny, fnz - characterScale * 0.05 + characterOffset)
+                                            setTranslation(templateNodeBack, bnx, bny, bnz + characterScale * 0.05 - characterOffset)
+                                            setShaderParameter(templateNodeFront, "playScale", characterIndex, 0, numCharacters, 1, false)
+                                            setShaderParameter(templateNodeBack, "playScale", characterIndex, 0, numCharacters, 1, false)
+
+                                            if characterScale > 0 then setScale(templateNodeFront, sx, sy - characterScale, sz - characterScale) end
+                                            if characterScale > 0 then setScale(templateNodeBack, sx, sy - characterScale, sz - characterScale) end
+
+                                        else
+
+                                            local fnode = clone(templateNodeFront, true, false, false)
+                                            local bnode = clone(templateNodeBack, true, false, false)
+
+                                            setName(fnode, "animalNameFront_" .. nodeNameCharacterIndex)
+                                            setName(bnode, "animalNameBack_" .. nodeNameCharacterIndex)
+
+                                            nodeNameCharacterIndex = nodeNameCharacterIndex + 1
+
+                                            if earTagIndex == 1 then
+                                                templateNodeFront = fnode
+                                                templateNodeBack = bnode
+                                            end
+
+                                            setTranslation(fnode, fnx, fny - (wordIndex > 1 and (characterScale * 0.05) or 0) - (wordIndex - 1) * 0.032, fnz + characterScale * 0.1 + characterOffset + (earTagIndex - 1) * 0.024)
+                                            setTranslation(bnode, bnx, bny - (wordIndex > 1 and (characterScale * 0.05) or 0) - (wordIndex - 1) * 0.032, bnz - characterScale * 0.1 - characterOffset - (earTagIndex - 1) * 0.024)
+
+                                            if characterScale > 0 then setScale(fnode, sx, sy - characterScale, sz - characterScale) end
+                                            if characterScale > 0 then setScale(bnode, sx, sy - characterScale, sz - characterScale) end
+
+                                            setShaderParameter(fnode, "playScale", characterIndex, 0, numCharacters, 1, false)
+                                            setShaderParameter(bnode, "playScale", characterIndex, 0, numCharacters, 1, false)
+
+                                        end
+
+                                    end
+
+                                end
+
+                            end
+
+
+                        end
+
+                    end
+
+                end
+
+            end
+
+        end
+        
         g_animalScreen:updateInfoBox()
     end
 
@@ -430,6 +580,35 @@ function RealisticLivestock_AnimalScreen:populateCellForItemInSection(_, list, _
         cell:getAttribute("amount"):setValue("")
         cell:getAttribute("amount"):setText("")
 
+        local checkbox = cell:getAttribute("checkbox")
+
+        if self.isInfoMode and not self.isBuyMode then
+            checkbox:setVisible(false)
+        else
+
+            checkbox:setVisible(true)
+            local check = cell:getAttribute("check")
+
+            if check ~= nil then
+
+                check:setVisible(false)
+        
+                checkbox.onClickCallback = function(animalScreen, button)
+
+                    if self.selectedItems[index] then
+                        self.selectedItems[index] = false
+                        check:setVisible(false)
+                    else
+                        self.selectedItems[index] = true
+                        check:setVisible(true)
+                    end
+
+                end
+
+            end
+
+        end
+
     else
 
         if list == self.targetList then
@@ -470,3 +649,76 @@ function RealisticLivestock_AnimalScreen:populateCellForItemInSection(_, list, _
 end
 
 AnimalScreen.populateCellForItemInSection = Utils.overwrittenFunction(AnimalScreen.populateCellForItemInSection, RealisticLivestock_AnimalScreen.populateCellForItemInSection)
+
+
+function AnimalScreen:onClickBuySelected()
+
+    local itemsToProcess = {}
+    local money = 0
+    local animalTypeIndex = self.sourceSelectorStateToAnimalType[self.sourceSelector:getState()]
+
+    for animalIndex, isSelected in pairs(self.selectedItems) do
+        if isSelected then
+            
+            if isSelected then
+                
+                if self.isTrailerFarm then
+                    table.insert(itemsToProcess, animalIndex)
+                elseif self.isBuyMode then
+                    local animalFound, _, _, totalPrice = self.controller:getSourcePrice(animalTypeIndex, animalIndex, 1)
+                    if animalFound then
+                        table.insert(itemsToProcess, animalIndex)
+                        money = money + totalPrice
+                    end
+                else
+                    local animalFound, _, _, totalPrice = self.controller:getTargetPrice(animalTypeIndex, animalIndex, 1)
+                    if animalFound then
+                        table.insert(itemsToProcess, animalIndex)
+                        money = money + totalPrice
+                    end
+                end
+
+            end
+
+        end
+    end
+
+    self.pendingBulkTransaction = { ["items"] = itemsToProcess, ["animalTypeIndex"] = animalTypeIndex }
+
+    local callback, confirmationText, text
+
+    if self.isBuyMode then
+
+        confirmationText = self.isTrailerFarm and g_i18n:getText("rl_ui_moveConfirmation") or g_i18n:getText("rl_ui_buyConfirmation")
+        callback = self.buySelected
+	    text = self.controller:getSourceActionText()
+
+    else
+
+        confirmationText = self.isTrailerFarm and g_i18n:getText("rl_ui_moveConfirmation") or g_i18n:getText("rl_ui_sellConfirmation")
+        callback = self.sellSelected
+	    text = self.controller:getTargetActionText()
+
+    end
+
+    YesNoDialog.show(callback, self, string.format(confirmationText, #itemsToProcess, g_i18n:formatMoney(money, 2, true, true)), g_i18n:getText("ui_attention"), text, g_i18n:getText("button_back"))
+
+end
+
+
+function AnimalScreen:buySelected(clickYes)
+
+    if not clickYes or self.pendingBulkTransaction == nil then return end
+
+    self.controller:applySourceBulk(self.pendingBulkTransaction.animalTypeIndex, self.pendingBulkTransaction.items)
+
+end
+
+
+function AnimalScreen:sellSelected(clickYes)
+
+    if not clickYes or self.pendingBulkTransaction == nil then return end
+
+    self.controller:applyTargetBulk(self.pendingBulkTransaction.animalTypeIndex, self.pendingBulkTransaction.items)
+
+end

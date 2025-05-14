@@ -46,3 +46,157 @@ function RL_AnimalScreenTrailerFarm:initSourceItems(_)
 end
 
 AnimalScreenTrailerFarm.initSourceItems = Utils.overwrittenFunction(AnimalScreenTrailerFarm.initSourceItems, RL_AnimalScreenTrailerFarm.initSourceItems)
+
+
+function AnimalScreenTrailerFarm:applySourceBulk(animalTypeIndex, items)
+
+    local trailer = self.trailer
+    local husbandry = self.husbandry
+    local clusterSystemTrailer = trailer:getClusterSystem()
+    local clusterSystemHusbandry = husbandry:getClusterSystem()
+    local ownerFarmId = trailer:getOwnerFarmId()
+
+    local sourceItems = self.sourceItems[animalTypeIndex]
+    local indexesToRemove = {}
+    local totalMovedAnimals = 0
+
+    for _, item in pairs(items) do
+
+        if sourceItems[item] ~= nil then
+
+            local sourceItem = sourceItems[item]
+            local animal = sourceItem.animal or sourceItem.cluster
+
+            local errorCode = AnimalMoveEvent.validate(trailer, husbandry, sourceItem:getClusterId(), 1, ownerFarmId)
+
+            if errorCode ~= nil then continue end
+    
+            totalMovedAnimals = totalMovedAnimals + 1
+            clusterSystemTrailer:removeCluster(animal.farmId .. " " .. animal.uniqueId)
+            animal.id, animal.idFull = nil, nil
+            clusterSystemHusbandry:addCluster(animal)
+            table.insert(indexesToRemove, item)
+
+        end
+
+    end
+
+    table.sort(indexesToRemove)
+
+    for i = #indexesToRemove, 1, -1 do table.remove(sourceItems, indexesToRemove[i]) end
+
+    self.sourceActionFinished(nil, string.format(g_i18n:getText("rl_ui_moveBulkResult"), totalMovedAnimals))
+
+end
+
+
+function AnimalScreenTrailerFarm:applyTargetBulk(animalTypeIndex, items)
+
+    local trailer = self.trailer
+    local husbandry = self.husbandry
+    local clusterSystemTrailer = trailer:getClusterSystem()
+    local clusterSystemHusbandry = husbandry:getClusterSystem()
+    local ownerFarmId = trailer:getOwnerFarmId()
+
+    local targetItems = self.targetItems
+    local indexesToRemove = {}
+    local totalMovedAnimals = 0
+
+    for _, item in pairs(items) do
+
+        if targetItems[item] ~= nil then
+
+            local targetItem = targetItems[item]
+            local animal = targetItem.animal or targetItem.cluster
+
+            local errorCode = AnimalMoveEvent.validate(husbandry, trailer, targetItem:getClusterId(), 1, ownerFarmId)
+
+            if errorCode ~= nil then continue end
+    
+            totalMovedAnimals = totalMovedAnimals + 1
+            clusterSystemHusbandry:removeCluster(animal.farmId .. " " .. animal.uniqueId)
+            animal.id, animal.idFull = nil, nil
+            clusterSystemTrailer:addCluster(animal)
+            table.insert(indexesToRemove, item)
+
+        end
+
+    end
+
+    table.sort(indexesToRemove)
+
+    for i = #indexesToRemove, 1, -1 do table.remove(targetItems, indexesToRemove[i]) end
+
+    self.sourceActionFinished(nil, string.format(g_i18n:getText("rl_ui_moveBulkResult"), totalMovedAnimals))
+
+end
+
+
+function RL_AnimalScreenTrailerFarm:applyTarget(_, _, animalIndex)
+
+    local trailer = self.trailer
+    local husbandry = self.husbandry
+    local clusterSystemTrailer = trailer:getClusterSystem()
+    local clusterSystemHusbandry = husbandry:getClusterSystem()
+    local ownerFarmId = trailer:getOwnerFarmId()
+    local item = self.targetItems[animalIndex]
+    
+    local id = item:getClusterId()
+	local errorCode = AnimalMoveEvent.validate(husbandry, trailer, id, 1, ownerFarmId)
+
+    if errorCode ~= nil then
+		self.errorCallback(g_i18n:getText(AnimalScreenTrailerFarm.MOVE_TO_TRAILER_ERROR_CODE_MAPPING[errorCode].text))
+		return false
+	end
+
+    local animal = item.animal or item.cluster
+
+    clusterSystemHusbandry:removeCluster(animal.farmId .. " " .. animal.uniqueId)
+    animal.id, animal.idFull = nil, nil
+    clusterSystemTrailer:addCluster(animal)
+
+    table.remove(self.targetItems, animalIndex)
+
+    self.targetActionFinished(false, g_i18n:getText(AnimalScreenTrailerFarm.MOVE_TO_TRAILER_ERROR_CODE_MAPPING[AnimalMoveEvent.MOVE_SUCCESS].text))
+
+    return true
+
+end
+
+AnimalScreenTrailerFarm.applyTarget = Utils.overwrittenFunction(AnimalScreenTrailerFarm.applyTarget, RL_AnimalScreenTrailerFarm.applyTarget)
+
+
+function RL_AnimalScreenTrailerFarm:applySource(_, animalTypeIndex, animalIndex)
+
+    local trailer = self.trailer
+    local husbandry = self.husbandry
+    local clusterSystemTrailer = trailer:getClusterSystem()
+    local clusterSystemHusbandry = husbandry:getClusterSystem()
+    local ownerFarmId = trailer:getOwnerFarmId()
+
+    local sourceItems = self.sourceItems[animalTypeIndex]
+    local item = sourceItems[animalIndex]
+    
+    local id = item:getClusterId()
+	local errorCode = AnimalMoveEvent.validate(trailer, husbandry, id, 1, ownerFarmId)
+
+    if errorCode ~= nil then
+		self.errorCallback(g_i18n:getText(AnimalScreenTrailerFarm.MOVE_TO_FARM_ERROR_CODE_MAPPING[errorCode].text))
+		return false
+	end
+
+    local animal = item.animal or item.cluster
+
+    clusterSystemTrailer:removeCluster(animal.farmId .. " " .. animal.uniqueId)
+    animal.id, animal.idFull = nil, nil
+    clusterSystemHusbandry:addCluster(animal)
+
+    table.remove(sourceItems, animalIndex)
+
+    self.sourceActionFinished(false, g_i18n:getText(AnimalScreenTrailerFarm.MOVE_TO_FARM_ERROR_CODE_MAPPING[AnimalMoveEvent.MOVE_SUCCESS].text))
+
+    return true
+
+end
+
+AnimalScreenTrailerFarm.applySource = Utils.overwrittenFunction(AnimalScreenTrailerFarm.applySource, RL_AnimalScreenTrailerFarm.applySource)

@@ -924,14 +924,14 @@ function RealisticLivestock.hasMaleAnimalInPen(spec, subT, female)
     if spec == nil then return false end
 
     local clusterSystem = spec.clusterSystem or spec
-    if clusterSystem == nil or clusterSystem:getAnimals() == nil then return false end
+    if clusterSystem == nil or clusterSystem.getAnimals == nil or clusterSystem:getAnimals() == nil then return false end
 
     local animals = clusterSystem:getAnimals()
     local animalSystem = g_currentMission.animalSystem
-    local animalType = spec.animalTypeIndex
+    local animalType = female == nil and spec.animalTypeIndex or female.animalTypeIndex
     local fatherId = (female ~= nil and female.fatherId ~= "-1") and female.fatherId or "-2"
 
-    for _, animal in ipairs(animals) do
+    for _, animal in pairs(animals) do
         local s = animalSystem:getSubTypeByIndex(animal:getSubTypeIndex())
         if s.reproductionMinAgeMonth == nil or s.reproductionMinAgeMonth > animal.age then continue end
 

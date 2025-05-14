@@ -103,3 +103,92 @@ function RL_AnimalScreenDealerFarm:getSourcePrice(_, animalTypeIndex, animalInde
 end
 
 AnimalScreenDealerFarm.getSourcePrice = Utils.overwrittenFunction(AnimalScreenDealerFarm.getSourcePrice, RL_AnimalScreenDealerFarm.getSourcePrice)
+
+
+function AnimalScreenDealerFarm:applySourceBulk(animalTypeIndex, items)
+
+    local husbandry = self.husbandry
+    local clusterSystem = husbandry:getClusterSystem()
+    local ownerFarmId = husbandry:getOwnerFarmId()
+
+    local sourceItems = self.sourceItems[animalTypeIndex]
+    local indexesToRemove = {}
+    local totalPrice = 0
+    local totalBoughtAnimals = 0
+
+    for _, item in pairs(items) do
+
+        if sourceItems[item] ~= nil then
+
+            local sourceItem = sourceItems[item]
+            local animal = sourceItem.animal
+            local price = -sourceItem:getPrice()
+            local transportationFee = -sourceItem:getTranportationFee(1)
+
+            local errorCode = AnimalBuyEvent.validate(husbandry, animal.subTypeIndex, animal.age, 1, price, transportationFee, ownerFarmId)
+
+            if errorCode ~= nil then continue end
+    
+            totalBoughtAnimals = totalBoughtAnimals + 1
+            totalPrice = totalPrice + price + transportationFee
+            clusterSystem:addCluster(animal)
+            g_currentMission.animalSystem:removeSaleAnimal(animalTypeIndex, animal.birthday.country, animal.farmId, animal.uniqueId)
+            table.insert(indexesToRemove, item)
+
+        end
+
+    end
+
+    table.sort(indexesToRemove)
+
+    for i = #indexesToRemove, 1, -1 do table.remove(sourceItems, indexesToRemove[i]) end
+
+    g_currentMission:addMoney(totalPrice, ownerFarmId, MoneyType.NEW_ANIMALS_COST, true, true)
+
+    self.sourceActionFinished(nil, string.format(g_i18n:getText("rl_ui_buyBulkResult"), totalBoughtAnimals, g_i18n:formatMoney(math.abs(totalPrice), 2, true, true)))
+
+end
+
+
+function AnimalScreenDealerFarm:applyTargetBulk(animalTypeIndex, items)
+
+    local husbandry = self.husbandry
+    local clusterSystem = husbandry:getClusterSystem()
+    local ownerFarmId = husbandry:getOwnerFarmId()
+
+    local targetItems = self.targetItems
+    local indexesToRemove = {}
+    local totalPrice = 0
+    local totalSoldAnimals = 0
+
+    for _, item in pairs(items) do
+
+        if targetItems[item] ~= nil then
+
+            local targetItem = targetItems[item]
+            local animal = targetItem.animal or targetItem.cluster
+            local price = targetItem:getPrice()
+            local transportationFee = -targetItem:getTranportationFee(1)
+
+            local errorCode = AnimalSellEvent.validate(husbandry, targetItem:getClusterId(), 1, price, transportationFee)
+
+            if errorCode ~= nil then continue end
+    
+            totalSoldAnimals = totalSoldAnimals + 1
+            totalPrice = totalPrice + price + transportationFee
+            clusterSystem:removeCluster(animal.farmId .. " " .. animal.uniqueId)
+            table.insert(indexesToRemove, item)
+
+        end
+
+    end
+
+    table.sort(indexesToRemove)
+
+    for i = #indexesToRemove, 1, -1 do table.remove(targetItems, indexesToRemove[i]) end
+
+    g_currentMission:addMoney(totalPrice, ownerFarmId, MoneyType.SOLD_ANIMALS, true, true)
+
+    self.targetActionFinished(nil, string.format(g_i18n:getText("rl_ui_sellBulkResult"), totalSoldAnimals, g_i18n:formatMoney(math.abs(totalPrice), 2, true, true)))
+
+end

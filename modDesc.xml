@@ -1,6 +1,6 @@
 <modDesc descVersion="98">
     <author>Arrow</author>
-    <version>1.0.0.2</version>
+    <version>1.0.0.4</version>
     <title>
         <en>Realistic Livestock</en>
         <de>Realistischer Viehbestand</de>
@@ -48,6 +48,25 @@ Features:
 - Statistics - almost every aspect of the base statistics of different breeds has been changed for more variation between breeds. This includes sell price, food and water amounts, production outputs, and more
 
 Changelog:
+
+1.0.0.4
+- Ported over settings menu from Realistic Weather
+- Added the following settings options:
+--- Enable/disable removal from pregnancy, age, health and accidents
+--- Change chance of removal from random accidents
+- Ear tag names now update when changing the name through the menu
+- Fixed an issue causing children to not be born
+- Fixed an issue causing new borns' age to be displayed as higher than 0
+- Fixed animal ages sometimes increasing when they shouldnt (some animals may age an extra month when loading for the first time with this fix)
+- Fixed female animals saying there is no male animal in the pen when there is
+- Fixed visual animals not updating when moving animals between pens with a trailer
+- Fixed non-owned animals dying
+- Fixed goats not lactating when giving birth
+- Changes to the saving/loading system for more first time installation and uninstallation compatibility
+
+1.0.0.3
+- Added a way to buy/sell/move animals in bulk
+- Fixed trailers charging a transportation fee
 
 1.0.0.2
 - Fixed error RealisticLivestock_AnimalSystem.lua:395: attempt to index nil with 'day'
@@ -169,6 +188,7 @@ Caractéristiques :
         <sourceFile filename="src/gui/VisualAnimalsDialog.lua"/>
         <sourceFile filename="src/gui/NameInputDialog.lua"/>
         <sourceFile filename="src/gui/AnimalInfoDialog.lua"/>
+        <sourceFile filename="src/gui/InGameMenuSettingsFrame.lua"/>
         <sourceFile filename="src/gui/RL_InfoDisplayKeyValueBox.lua"/>
         <sourceFile filename="src/gui/RealisticLivestock_InGameMenuAnimalsFrame.lua"/>
         <sourceFile filename="src/placeables/RealisticLivestock_PlaceableSystem.lua"/>
@@ -180,6 +200,7 @@ Caractéristiques :
         <sourceFile filename="src/RealisticLivestock.lua"/>
         <sourceFile filename="src/RealisticLivestock_Animal.lua"/>
         <sourceFile filename="src/RealisticLivestock_FSBaseMission.lua"/>
+        <sourceFile filename="src/RLSettings.lua"/>
     </extraSourceFiles>
     <l10n filenamePrefix="translations/translation"/>
     <inputBinding>

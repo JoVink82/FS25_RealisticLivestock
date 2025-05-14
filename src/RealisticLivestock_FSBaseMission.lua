@@ -2,6 +2,7 @@ RealisticLivestock_FSBaseMission = {}
 local modDirectory = g_currentModDirectory
 local modSettingsDirectory = g_currentModSettingsDirectory
 
+
 function RealisticLivestock_FSBaseMission:onStartMission()
 
     g_gui.guis.AnimalScreen:delete()
@@ -16,6 +17,8 @@ function RealisticLivestock_FSBaseMission:onStartMission()
 
     AnimalInfoDialog.register()
     NameInputDialog.register()
+
+	RLSettings.applyDefaultSettings()
 
 end
 

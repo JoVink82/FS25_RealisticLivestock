@@ -16,6 +16,10 @@
 						<Text profile="fs25_subCategoryListItemName" name="name"/>
 						<Text profile="fs25_animalSourceListItemPrice" name="price"/>
 						<Text profile="fs25_animalSourceListItemAmount" name="amount"/>
+						<Button profile="rl_checkboxButton" name="checkbox">
+							<ThreePartBitmap profile="rl_checkboxBox"/>
+							<Bitmap profile="rl_checkbox" name="check"/>
+						</Button>
 					</ListItem>
 					<ListItem profile="fs25_animalSourceListSection" name="sectionCell">
 						<GuiElement profile="fs25_subCategoryListSectionHeaderTitle">
@@ -26,6 +30,10 @@
 							<Text profile="fs25_subCategoryListItemName" name="name"/>
 							<Text profile="fs25_animalSourceListItemPrice" name="price"/>
 							<Text profile="fs25_animalSourceListItemAmount" name="amount"/>
+							<Button profile="rl_checkboxButton" name="checkbox">
+								<ThreePartBitmap profile="rl_checkboxBox"/>
+								<Bitmap profile="rl_checkbox" name="check"/>
+							</Button>
 						</Bitmap>
 					</ListItem>
 				</SmoothList>
@@ -263,6 +271,9 @@
 			<Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
 		</Button>
 		<Button profile="buttonMenuSwitch" text="$l10n_button_buy" onClick="onClickBuy" id="buttonBuy">
+			<Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+		</Button>
+		<Button profile="rlButtonMenuExtra2" text="$l10n_rl_ui_buySelected" onClick="onClickBuySelected" id="buttonBuySelected">
 			<Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
 		</Button>
 		<Button profile="buttonBuy" text="$l10n_rl_ui_rename" onClick="onClickRename" id="buttonRename">
@@ -604,6 +615,39 @@
 			<margin value="0 4px 12px 4px"/>
 			<imageColor value="$preset_fs25_colorMainHighlight"/>
 			<imageSliceId value="gui.roundButtonPlus"/>
+		</Profile>
+
+		<Profile name="rl_checkbox" extends="buttonBase">
+			<imageSliceId value="gui.tick"/>
+			<imageColor value="$preset_fs25_colorMainHighlight"/>
+			<imageSelectedColor value="$preset_colorRed"/>
+			<position value="3px 0px"/>
+		</Profile>
+
+		<Profile name="rl_checkboxButton" extends="buttonBase" with="anchorTopRight">
+			<width value="25px"/>
+			<position value="-45px -30px"/>
+			<imageColor value="$preset_colorTransparent"/>
+		</Profile>
+
+		<Profile name="rl_checkboxBox" extends="emptyPanel">
+			<imageSliceId value="ui_elements.square_center"/>
+			<imageColor value="$preset_fs25_colorMainHighlight"/>
+			<imageSelectedColor value="$preset_colorRed"/>
+			<imageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+			<imageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+			<startImageSize value="5px"/>
+			<startImageSliceId value="ui_elements.square_left"/>
+			<startImageColor value="$preset_fs25_colorMainHighlight"/>
+			<startImageSelectedColor value="$preset_colorRed"/>
+			<endImageSize value="5px"/>
+			<endImageSliceId value="ui_elements.square_right"/>
+			<endImageColor value="$preset_fs25_colorMainHighlight"/>
+			<endImageSelectedColor value="$preset_colorRed"/>
+		</Profile>
+
+		<Profile name="rlButtonMenuExtra2" extends="fs25_wideButton" with="touchButton">
+			<inputAction value="MENU_EXTRA_2"/>
 		</Profile>
 	</GUIProfiles>
 </GUI>

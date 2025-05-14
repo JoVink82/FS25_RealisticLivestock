@@ -462,6 +462,8 @@ function RealisticLivestock_AnimalClusterHusbandry:updateVisuals(superFunc, remo
                                     bny = bny - 0.012
                                 end
 
+                                local nodeNameCharacterIndex = 1
+
                                 for wordIndex = 1, #words do
 
                                     local word = words[wordIndex]
@@ -494,6 +496,11 @@ function RealisticLivestock_AnimalClusterHusbandry:updateVisuals(superFunc, remo
 
                                             local fnode = clone(templateNodeFront, true, false, false)
                                             local bnode = clone(templateNodeBack, true, false, false)
+
+                                            setName(fnode, "animalNameFront_" .. nodeNameCharacterIndex)
+                                            setName(bnode, "animalNameBack_" .. nodeNameCharacterIndex)
+
+                                            nodeNameCharacterIndex = nodeNameCharacterIndex + 1
 
                                             if earTagIndex == 1 then
                                                 templateNodeFront = fnode

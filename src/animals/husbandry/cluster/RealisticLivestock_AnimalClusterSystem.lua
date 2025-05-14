@@ -48,86 +48,45 @@ end
 
 AnimalClusterSystem.getAnimals = RealisticLivestock_AnimalClusterSystem.getAnimals
 
-function RealisticLivestock_AnimalClusterSystem:loadFromXMLFile(superFunc, xmlFile, key)
 
-    local i = 0
-    local totalAnimals = 0
+function RealisticLivestock_AnimalClusterSystem:loadFromXMLFile(_, xmlFile, key)
 
-    while true do
+    self.animals = {}
 
-        local animalKey = string.format("%s.animal(%d)", key, i)
-        local rlAnimalKey = string.format("%s.RLAnimal(%d)", key, i)
 
-        if not xmlFile:hasProperty(animalKey) and not xmlFile:hasProperty(rlAnimalKey) then break end
 
-        if xmlFile:getString(rlAnimalKey .. "#subType") ~= nil then
+    xmlFile:iterate(key .. ".RLAnimal", function(_, legacyKey)
+        
+        local animal = Animal.loadFromXMLFile(xmlFile, legacyKey, self, true)
+        if animal ~= nil then table.insert(self.animals, animal) end
 
-            local animal = Animal.loadFromXMLFile(xmlFile, rlAnimalKey, self)
-            if animal == nil then continue end
-            table.insert(self.animals, animal)
+    end)
 
-            i = i + 1
 
-            continue
+   xmlFile:iterate(key .. ".animal", function(_, animalKey)
+
+        local numAnimals = xmlFile:getInt(animalKey .. "#numAnimals", 1)
+
+        for i = 1, numAnimals do
+
+            local animal = Animal.loadFromXMLFile(xmlFile, animalKey, self)
+            if animal ~= nil then table.insert(self.animals, animal) end
 
         end
 
-        local subTypeName = xmlFile:getString(animalKey .. "#subType", "")
-        local subType = g_currentMission.animalSystem:getSubTypeByName(subTypeName)
-        local subTypeIndex = g_currentMission.animalSystem:getSubTypeIndexByName(subTypeName)
+    end)
 
-        if subType == nil then
-            Logging.xmlWarning(xmlFile, "SubType '%s' not defined. Ignoring animal '%s'.", tostring(subTypeName), animalKey)
-        else
-            local cluster = g_currentMission.animalSystem:createClusterFromSubTypeIndex(subType.subTypeIndex)
-
-            if cluster:loadFromXMLFile(xmlFile, animalKey) then
-                --self:addPendingAddCluster(cluster)
-
-                local monthsSinceLastBirth = cluster.monthsSinceLastBirth or 0
-                local lactatingAnimals = cluster.lactatingAnimals or 0
-                local isParent = cluster.isParent or false
-                local gender = subType.gender or "female"
-                local minWeight = subType.minWeight
-                local targetWeight = subType.targetWeight
-                local maxWeight = subType.maxWeight
-                local weightPerMonth = (targetWeight - minWeight) / 18
-
-                for index=1, cluster.numAnimals do
-
-                    -- not an exact calculation for every subtype but it is relatively accurate
-                    local weight = math.clamp((minWeight + (weightPerMonth * math.clamp(cluster.age, 0, 20))) * (math.random(85, 115) / 100), minWeight, maxWeight)
-
-                    local isLactating = index <= lactatingAnimals
-
-                    local animal = Animal.new(cluster.age, cluster.health, monthsSinceLastBirth, gender, subTypeIndex, cluster.reproduction, isParent, false, isLactating, self, nil, nil, nil, nil, nil, nil, nil, nil, nil, weight)
-
-                    if string.contains(animal.subType, "HORSE") or string.contains(animal.subType, "STALLION") then
-                        animal.dirt = cluster.dirt or 0
-                        if cluster.name ~= nil and cluster.name ~= "" then animal.name = cluster.name end
-                        animal.fitness = cluster.fitness or 0
-                        animal.riding = cluster.riding or 0
-                    end
-                    table.insert(self.animals, animal)
-                    totalAnimals = totalAnimals + 1
-                end
-
-            end
-        end
-
-        i = i + 1
-
-    end
 
     self:updateClusters()
-
     self.needsUpdate = false
 
     if self.owner ~= nil and self.owner.spec_husbandryFood ~= nil then SpecializationUtil.raiseEvent(self.owner, "onHusbandryAnimalsUpdate", self.animals) end
 
 end
 
+
 AnimalClusterSystem.loadFromXMLFile = Utils.overwrittenFunction(AnimalClusterSystem.loadFromXMLFile, RealisticLivestock_AnimalClusterSystem.loadFromXMLFile)
+
 
 function RealisticLivestock_AnimalClusterSystem:saveToXMLFile(superFunc, xmlFile, key, usedModNames)
 
@@ -147,7 +106,7 @@ function RealisticLivestock_AnimalClusterSystem:saveToXMLFile(superFunc, xmlFile
         --xmlFile:setString(animalKey .. "#subType", subType.name)
         --cluster:saveToXMLFile(xmlFile, animalKey, usedModNames)
 
-        local animalKey = string.format("%s.RLAnimal(%d)", key, i - 1)
+        local animalKey = string.format("%s.animal(%d)", key, i - 1)
         animal:saveToXMLFile(xmlFile, animalKey)
 
     end
@@ -204,11 +163,60 @@ function RealisticLivestock_AnimalClusterSystem:removeCluster(_, animalIndex)
 
     if self.animals[animalIndex] ~= nil then
         local animal = self.animals[animalIndex]
+
+        local spec = self.owner.spec_husbandryAnimals
+
+        if animal.idFull ~= nil and animal.idFull ~= "1-1" and spec ~= nil then
+
+            local sep = string.find(animal.idFull, "-")
+            local husbandry = tonumber(string.sub(animal.idFull, 1, sep - 1))
+            local animalId = tonumber(string.sub(animal.idFull, sep + 1))
+
+            if husbandry == 0 or animalId == 0 then return end
+
+            removeHusbandryAnimal(husbandry, animalId)
+
+            local clusterHusbandry = spec.clusterHusbandry
+            clusterHusbandry.husbandryIdsToVisualAnimalCount[husbandry] = math.max(clusterHusbandry.husbandryIdsToVisualAnimalCount[husbandry] - 1, 0)
+            clusterHusbandry.visualAnimalCount = math.max(clusterHusbandry.visualAnimalCount - 1, 0)
+
+            for husbandryIndex, animalIds in pairs(clusterHusbandry.animalIdToCluster) do
+
+                if clusterHusbandry.husbandryIds[husbandryIndex] == husbandry then
+
+                    table.remove(animalIds, animalId)
+                    break
+
+                end
+
+            end
+
+        end
+
         table.remove(self.animals, animalIndex)
         animal:setClusterSystem(nil)
     else
         for i, animal in pairs(self.animals) do
             if animal.farmId .. " " .. animal.uniqueId == animalIndex then
+
+                local spec = self.owner.spec_husbandryAnimals
+
+                if animal.idFull ~= nil and animal.idFull ~= "1-1" and spec ~= nil then
+
+                    local sep = string.find(animal.idFull, "-")
+                    local husbandry = tonumber(string.sub(animal.idFull, 1, sep - 1))
+                    local animalId = tonumber(string.sub(animal.idFull, sep + 1))
+
+                    if husbandry == 0 or animalId == 0 then return end
+
+                    removeHusbandryAnimal(husbandry, animalId)
+
+                    local clusterHusbandry = spec.clusterHusbandry
+                    clusterHusbandry.husbandryIdsToVisualAnimalCount[husbandry] = math.max(clusterHusbandry.husbandryIdsToVisualAnimalCount[husbandry] - 1, 0)
+                    clusterHusbandry.visualAnimalCount = math.max(clusterHusbandry.visualAnimalCount - 1, 0)
+
+                end
+
                 table.remove(self.animals, i)
                 animal:setClusterSystem(nil)
                 break

@@ -107,9 +107,8 @@ function RL_AnimalScreenDealerTrailer:applySource(_, animalTypeIndex, animalInde
     local ownerFarmId = trailer:getOwnerFarmId()
 
     local price = -item:getPrice()
-	local transportationFee = -item:getTranportationFee(1)
 
-    local errorCode = AnimalBuyEvent.validate(trailer, item:getSubTypeIndex(), item:getAge(), 1, price, transportationFee, ownerFarmId)
+    local errorCode = AnimalBuyEvent.validate(trailer, item:getSubTypeIndex(), item:getAge(), 1, price, 0, ownerFarmId)
 
     if errorCode ~= nil then
 		local error = AnimalScreenDealerFarm.BUY_ERROR_CODE_MAPPING[errorCode]
@@ -121,7 +120,7 @@ function RL_AnimalScreenDealerTrailer:applySource(_, animalTypeIndex, animalInde
 
     local animal = item.animal
     trailer:getClusterSystem():addCluster(animal)
-    g_currentMission:addMoney(price + transportationFee, ownerFarmId, MoneyType.NEW_ANIMALS_COST, true, true)
+    g_currentMission:addMoney(price, ownerFarmId, MoneyType.NEW_ANIMALS_COST, true, true)
     
     g_currentMission.animalSystem:removeSaleAnimal(animalTypeIndex, animal.birthday.country, animal.farmId, animal.uniqueId)
     table.remove(self.sourceItems[animalTypeIndex], animalIndex)
@@ -155,3 +154,90 @@ function RL_AnimalScreenDealerTrailer:getSourcePrice(_, animalTypeIndex, animalI
 end
 
 AnimalScreenDealerTrailer.getSourcePrice = Utils.overwrittenFunction(AnimalScreenDealerTrailer.getSourcePrice, RL_AnimalScreenDealerTrailer.getSourcePrice)
+
+
+function AnimalScreenDealerTrailer:applySourceBulk(animalTypeIndex, items)
+
+    local trailer = self.trailer
+    local clusterSystem = trailer:getClusterSystem()
+    local ownerFarmId = trailer:getOwnerFarmId()
+
+    local sourceItems = self.sourceItems[animalTypeIndex]
+    local indexesToRemove = {}
+    local totalPrice = 0
+    local totalBoughtAnimals = 0
+
+    for _, item in pairs(items) do
+
+        if sourceItems[item] ~= nil then
+
+            local sourceItem = sourceItems[item]
+            local animal = sourceItem.animal
+            local price = -sourceItem:getPrice()
+
+            local errorCode = AnimalBuyEvent.validate(trailer, animal.subTypeIndex, animal.age, 1, price, 0, ownerFarmId)
+
+            if errorCode ~= nil then continue end
+    
+            totalBoughtAnimals = totalBoughtAnimals + 1
+            totalPrice = totalPrice + price
+            clusterSystem:addCluster(animal)
+            g_currentMission.animalSystem:removeSaleAnimal(animalTypeIndex, animal.birthday.country, animal.farmId, animal.uniqueId)
+            table.insert(indexesToRemove, item)
+
+        end
+
+    end
+
+    table.sort(indexesToRemove)
+
+    for i = #indexesToRemove, 1, -1 do table.remove(sourceItems, indexesToRemove[i]) end
+
+    g_currentMission:addMoney(totalPrice, ownerFarmId, MoneyType.NEW_ANIMALS_COST, true, true)
+
+    self.sourceActionFinished(nil, string.format(g_i18n:getText("rl_ui_buyBulkResult"), totalBoughtAnimals, g_i18n:formatMoney(math.abs(totalPrice), 2, true, true)))
+
+end
+
+
+function AnimalScreenDealerTrailer:applyTargetBulk(animalTypeIndex, items)
+
+    local trailer = self.trailer
+    local clusterSystem = trailer:getClusterSystem()
+    local ownerFarmId = trailer:getOwnerFarmId()
+
+    local targetItems = self.targetItems
+    local indexesToRemove = {}
+    local totalPrice = 0
+    local totalSoldAnimals = 0
+
+    for _, item in pairs(items) do
+
+        if targetItems[item] ~= nil then
+
+            local targetItem = targetItems[item]
+            local animal = targetItem.animal or targetItem.cluster
+            local price = targetItem:getPrice()
+
+            local errorCode = AnimalSellEvent.validate(trailer, targetItem:getClusterId(), 1, price, 0)
+
+            if errorCode ~= nil then continue end
+    
+            totalSoldAnimals = totalSoldAnimals + 1
+            totalPrice = totalPrice + price
+            clusterSystem:removeCluster(animal.farmId .. " " .. animal.uniqueId)
+            table.insert(indexesToRemove, item)
+
+        end
+
+    end
+
+    table.sort(indexesToRemove)
+
+    for i = #indexesToRemove, 1, -1 do table.remove(targetItems, indexesToRemove[i]) end
+
+    g_currentMission:addMoney(totalPrice, ownerFarmId, MoneyType.SOLD_ANIMALS, true, true)
+
+    self.targetActionFinished(nil, string.format(g_i18n:getText("rl_ui_sellBulkResult"), totalSoldAnimals, g_i18n:formatMoney(math.abs(totalPrice), 2, true, true)))
+
+end

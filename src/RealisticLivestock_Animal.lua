@@ -253,7 +253,7 @@ function Animal.new(age, health, monthsSinceLastBirth, gender, subTypeIndex, rep
             ["month"] = birthMonth,
             ["year"] = birthYear,
             ["country"] = birthCountry,
-            ["needsAgeIncrease"] = false
+            ["lastAgeMonth"] = currentMonth
         }
 
     end
@@ -293,13 +293,23 @@ function Animal:getSupportsMerging()
 end
 
 
-function Animal.loadFromXMLFile(xmlFile, key, clusterSystem)
+function Animal.loadFromXMLFile(xmlFile, key, clusterSystem, isLegacy)
+
+    local subTypeIndex
+    
+    if isLegacy then
+        subTypeIndex = xmlFile:getInt(key .. "#subType", 3)
+    else
+        local subTypeName = xmlFile:getString(key .. "#subType", "COW_HOLSTEIN")
+        subTypeIndex = g_currentMission.animalSystem:getSubTypeIndexByName(subTypeName)
+    end
+
+    if subTypeIndex == nil then return nil end
 
     local age = xmlFile:getInt(key .. "#age")
     local health = xmlFile:getFloat(key .. "#health")
     local monthsSinceLastBirth = xmlFile:getInt(key .. "#monthsSinceLastBirth")
     local gender = xmlFile:getString(key .. "#gender")
-    local subTypeIndex = xmlFile:getInt(key .. "#subType", nil)
     local reproduction = xmlFile:getFloat(key .. "#reproduction")
     local isParent = xmlFile:getBool(key .. "#isParent")
     local isPregnant = xmlFile:getBool(key .. "#isPregnant")
@@ -370,7 +380,7 @@ function Animal.loadFromXMLFile(xmlFile, key, clusterSystem)
     local birthdayMonth = xmlFile:getInt(key .. ".birthday#month", nil)
     local birthdayYear = xmlFile:getInt(key .. ".birthday#year", nil)
     local birthdayCountry = xmlFile:getInt(key .. ".birthday#country", nil)
-    local needsAgeIncrease = xmlFile:getBool(key .. ".birthday#needsAgeIncrease", false)
+    local lastAgeMonth = xmlFile:getInt(key .. ".birthday#lastAgeMonth", 0)
 
 
     local birthday
@@ -381,7 +391,7 @@ function Animal.loadFromXMLFile(xmlFile, key, clusterSystem)
             ["month"] = birthdayMonth,
             ["year"] = birthdayYear,
             ["country"] = birthdayCountry,
-            ["needsAgeIncrease"] = needsAgeIncrease
+            ["lastAgeMonth"] = lastAgeMonth
         }
     end
 
@@ -450,8 +460,9 @@ function Animal:saveToXMLFile(xmlFile, key)
     xmlFile:setInt(key .. "#age", self.age)
     xmlFile:setFloat(key .. "#health", self.health)
     xmlFile:setInt(key .. "#monthsSinceLastBirth", self.monthsSinceLastBirth)
+    xmlFile:setInt(key .. "#numAnimals", 1)
     xmlFile:setString(key .. "#gender", self.gender)
-    xmlFile:setInt(key .. "#subType", self.subTypeIndex)
+    xmlFile:setString(key .. "#subType", self.subType)
     xmlFile:setFloat(key .. "#reproduction", self.reproduction)
     xmlFile:setBool(key .. "#isParent", self.isParent)
     xmlFile:setBool(key .. "#isPregnant", self.isPregnant)
@@ -532,7 +543,7 @@ function Animal:saveToXMLFile(xmlFile, key)
         xmlFile:setInt(key .. ".birthday#month", self.birthday.month)
         xmlFile:setInt(key .. ".birthday#year", self.birthday.year)
         xmlFile:setInt(key .. ".birthday#country", self.birthday.country)
-        xmlFile:setBool(key .. ".birthday#needsAgeIncrease", self.birthday.needsAgeIncrease)
+        xmlFile:setInt(key .. ".birthday#lastAgeMonth", self.birthday.lastAgeMonth)
 
     end
 
@@ -770,7 +781,7 @@ function Animal:addInfos(infos)
             elseif self.isParent and self.monthsSinceLastBirth <= 2 then
                 attributeText = g_i18n:getText("rl_ui_recoveringLastBirth")
                 valueText = g_i18n:formatNumMonth(3 - self.monthsSinceLastBirth)
-            elseif not RealisticLivestock.hasMaleAnimalInPen(self.clusterSystem, self.subTypeName, self) and self.reproduction == 0 then
+            elseif not RealisticLivestock.hasMaleAnimalInPen(self.clusterSystem, subType.name, self) and self.reproduction == 0 then
                 attributeText = g_i18n:getText("rl_ui_noMaleAnimal")
                 valueText = "0"
             elseif healthFactor < subType.reproductionMinHealth then
@@ -1374,6 +1385,8 @@ end
 
 function Animal:getCanReproduce()
 
+    if self.isPregnant or self.pregnancy ~= nil then return true end
+
     local subType = self:getSubType()
 
     if not subType.supportsReproduction then return false end
@@ -1457,7 +1470,7 @@ function Animal:onPeriodChanged()
 
     self.monthsSinceLastBirth = self.monthsSinceLastBirth + 1
     
-    if self.birthday ~= nil then self.birthday.needsAgeIncrease = true end
+    --if self.birthday ~= nil then self.birthday.needsAgeIncrease = true end
 
 end
 
@@ -1466,7 +1479,11 @@ function Animal:onDayChanged(spec, isServer, day, month, year, currentDayInPerio
     
     local birthday = self.birthday
 
+    --if self.uniqueId == "610017" and self.farmId == "988324" then
 
+        --print(birthday.needsAgeIncrease, self.age)
+
+    --end
 
     if day == nil then
 
@@ -1483,12 +1500,11 @@ function Animal:onDayChanged(spec, isServer, day, month, year, currentDayInPerio
     end
 
 
-
-    if birthday ~= nil and birthday.needsAgeIncrease then
+    if birthday ~= nil and birthday.lastAgeMonth ~= month then
 
         if birthday.day <= day or currentDayInPeriod == daysPerPeriod then
             self:increaseAge()
-            self.birthday.needsAgeIncrease = false
+            self.birthday.lastAgeMonth = month
         end
 
     elseif birthday == nil and day == 1 then
@@ -1496,6 +1512,12 @@ function Animal:onDayChanged(spec, isServer, day, month, year, currentDayInPerio
         self:increaseAge()
 
     end
+
+    --if self.uniqueId == "610017" and self.farmId == "988324" then
+
+        --print(birthday.needsAgeIncrease, self.age, "-----")
+
+    --end
 
 
     local children = 0
@@ -1728,11 +1750,15 @@ function Animal:onDayChanged(spec, isServer, day, month, year, currentDayInPerio
 
     end
 
-    local lowHealthDeath = self:CalculateLowHealthMonthlyAnimalDeaths()
-    local oldDeath = self:CalculateOldAgeMonthlyAnimalDeaths()
-    local randomDeath, randomDeathMoney = 0, 0
-    
-    if spec ~= nil then randomDeath, randomMoney = self:CalculateRandomMonthlyAnimalDeaths(spec) end
+    local lowHealthDeath, oldDeath, randomDeath, randomDeathMoney = 0, 0, 0, 0
+
+    if self.deathEnabled and (self.clusterSystem == nil or self.clusterSystem.owner:getOwnerFarmId() ~= FarmManager.INVALID_FARM_ID) then
+
+        lowHealthDeath = self:CalculateLowHealthMonthlyAnimalDeaths()
+        oldDeath = self:CalculateOldAgeMonthlyAnimalDeaths()
+        if spec ~= nil then randomDeath, randomMoney = self:CalculateRandomMonthlyAnimalDeaths(spec) end
+
+    end
 
     return children, deadAnimals, childrenSold, childrenSoldAmount, lowHealthDeath, oldDeath, randomDeath, randomDeathMoney
 
@@ -1970,7 +1996,7 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
 
     if childNum > 0 then
         self.isParent = true
-        if animalType == AnimalType.COW then self.isLactating = true end
+        if animalType == AnimalType.COW or self.subType == "GOAT" then self.isLactating = true end
     end
 
     childNum = childNum - animalsToSell
@@ -2017,6 +2043,7 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
     local childrenToRemove = {}
     local birthday = self.pregnancy.expected
     birthday.country = isSaleAnimal and self.birthday.country or RealisticLivestock.getMapCountryIndex()
+    birthday.lastAgeMonth = 0
 
 
     for i, child in pairs(pregnancies) do
@@ -2034,7 +2061,7 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
             weight = weight * (math.random(110, 130) / 100)
         end
 
-        if math.random() >= genetics.health * (weight / minWeight) * 1.15 then
+        if self.deathEnabled and math.random() >= genetics.health * (weight / minWeight) * 1.15 then
 
             childNum = childNum - 1
             animalsToSell = animalsToSell - 1
@@ -2096,7 +2123,7 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
 
     table.sort(childrenToRemove)
 
-    for i = #childrenToRemove, 1 do
+    for i = #childrenToRemove, 1, -1 do
 
         table.remove(pregnancies, childrenToRemove[i])
 
@@ -2251,27 +2278,27 @@ function Animal:CalculateRandomMonthlyAnimalDeaths(spec)
     local temp = spec.minTemp
 
     if animalType == AnimalType.COW then
-        deathChance = 0.018
+        deathChance = 0.01
         if self.age < 6 then
-            deathChance = 0.016
+            deathChance = 0.013
         elseif self.age < 18 then
-            deathChance = 0.01
+            deathChance = 0.011
         end
     elseif animalType == AnimalType.SHEEP then
         deathChance = 0.012
         if self.age < 3 then
-            deathChance = 0.014
+            deathChance = 0.011
         elseif self.age < 8 then
-            deathChance = 0.008
+            deathChance = 0.006
         end
     elseif animalType == AnimalType.HORSE then
         deathChance = 0.013
     elseif animalType == AnimalType.PIG then
         deathChance = 0.005
         if self.age < 3 then
-            deathChance = 0.026
+            deathChance = 0.021
         elseif self.age < 6 then
-            deathChance = 0.012
+            deathChance = 0.009
         end
     elseif animalType == AnimalType.CHICKEN then
         if self.age < 6 then
@@ -2290,7 +2317,7 @@ function Animal:CalculateRandomMonthlyAnimalDeaths(spec)
         deathChance = deathChance * (1 + (1 - (temp / 10)))
     end
 
-
+    deathChance = deathChance * self.accidentsChance
 
     if math.random() <= deathChance then
         local animalPrice = 0
@@ -2426,5 +2453,12 @@ function Animal:getNumberOfImpregnatableFemalesForMale()
     end
 
     return i
+
+end
+
+
+function Animal.onSettingChanged(name, state)
+
+    Animal[name] = state
 
 end

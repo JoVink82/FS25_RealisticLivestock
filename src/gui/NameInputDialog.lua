@@ -9,6 +9,7 @@ function NameInputDialog.register()
     local dialog = NameInputDialog.new()
     g_gui:loadGui(modDirectory .. "gui/NameInputDialog.xml", "NameInputDialog", dialog)
     NameInputDialog.INSTANCE = dialog
+    dialog.textElement.maxCharacters = 20
 end
 
 
@@ -111,6 +112,17 @@ end
 function NameInputDialog:sendCallback(clickOk)
     local text = self.textElement.text
     self:close()
+
+    local words = string.split(text, " ")
+
+    while #words > 2 do
+
+        words[2] = words[2] .. words[3]
+        table.remove(words, 3)
+
+    end
+
+    if #words == 2 then text = words[1] .. " " .. words[2] end
 
     if self.target == nil then
         self.onTextEntered(text, clickOk, self.callbackArgs)
