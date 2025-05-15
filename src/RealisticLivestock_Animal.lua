@@ -1981,7 +1981,7 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
     if self.pregnancy == nil or self.pregnancy.pregnancies == nil then return 0, false, 0, 0 end
 
     local pregnancies = self.pregnancy.pregnancies
-    local freeSlots = isSaleAnimal and 100 or spec.maxNumAnimals
+    local freeSlots = isSaleAnimal and 100 or (spec.maxNumAnimals - spec:getNumOfAnimals())
     local childNum = #pregnancies
     local animalsToSell = 0
     local subType = self:getSubType()
@@ -2043,7 +2043,6 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
     local childrenToRemove = {}
     local birthday = self.pregnancy.expected
     birthday.country = isSaleAnimal and self.birthday.country or RealisticLivestock.getMapCountryIndex()
-    birthday.lastAgeMonth = 0
 
 
     for i, child in pairs(pregnancies) do
@@ -2075,9 +2074,10 @@ function Animal:reproduce(spec, day, month, year, isSaleAnimal)
         end
 
         child.weight = weight
-        child.age = -1
+        child.age = 0
 
         child:setBirthday(birthday)
+        child.birthday.lastAgeMonth = month
 
         if not isSaleAnimal then
             child:setClusterSystem(self.clusterSystem)
@@ -2278,33 +2278,33 @@ function Animal:CalculateRandomMonthlyAnimalDeaths(spec)
     local temp = spec.minTemp
 
     if animalType == AnimalType.COW then
-        deathChance = 0.01
+        deathChance = 0.002
         if self.age < 6 then
-            deathChance = 0.013
+            deathChance = 0.0035
         elseif self.age < 18 then
-            deathChance = 0.011
+            deathChance = 0.0024
         end
     elseif animalType == AnimalType.SHEEP then
-        deathChance = 0.012
+        deathChance = 0.003
         if self.age < 3 then
-            deathChance = 0.011
+            deathChance = 0.0035
         elseif self.age < 8 then
-            deathChance = 0.006
+            deathChance = 0.0032
         end
     elseif animalType == AnimalType.HORSE then
-        deathChance = 0.013
+        deathChance = 0.002
     elseif animalType == AnimalType.PIG then
-        deathChance = 0.005
+        deathChance = 0.001
         if self.age < 3 then
-            deathChance = 0.021
+            deathChance = 0.018
         elseif self.age < 6 then
-            deathChance = 0.009
+            deathChance = 0.0075
         end
     elseif animalType == AnimalType.CHICKEN then
         if self.age < 6 then
-            deathChance = 0.003
+            deathChance = 0.0012
         else
-            deathChance = 0.004
+            deathChance = 0.0016
         end
         animalsCanBeSold = false
     end

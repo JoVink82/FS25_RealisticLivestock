@@ -75,6 +75,26 @@ RealisticLivestock.AREA_CODES = {
     [11] = {
         ["code"] = "RU",
         ["country"] = "Russia"
+    },
+    [12] = {
+        ["code"] = "SW",
+        ["country"] = "Sweden"
+    },
+    [13] = {
+        ["code"] = "NO",
+        ["country"] = "Norway"
+    },
+    [14] = {
+        ["code"] = "FI",
+        ["country"] = "Finland"
+    },
+    [15] = {
+        ["code"] = "JP",
+        ["country"] = "Japan"
+    },
+    [16] = {
+        ["code"] = "SP",
+        ["country"] = "Spain"
     }
 }
 

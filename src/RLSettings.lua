@@ -26,6 +26,15 @@ RLSettings.SETTINGS = {
 			["name"] = "deathEnabled",
 			["state"] = 2
 		}
+	},
+
+	["foodScale"] = {
+		["index"] = 3,
+		["type"] = "MultiTextOption",
+		["default"] = 2,
+		["valueType"] = "float",
+		["values"] = { 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5 },
+		["callback"] = RealisticLivestock_PlaceableHusbandryFood.onSettingChanged
 	}
 
 }
