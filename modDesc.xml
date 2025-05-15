@@ -1,6 +1,6 @@
 <modDesc descVersion="98">
     <author>Arrow</author>
-    <version>1.0.0.4</version>
+    <version>1.0.0.6</version>
     <title>
         <en>Realistic Livestock</en>
         <de>Realistischer Viehbestand</de>
@@ -48,6 +48,18 @@ Features:
 - Statistics - almost every aspect of the base statistics of different breeds has been changed for more variation between breeds. This includes sell price, food and water amounts, production outputs, and more
 
 Changelog:
+
+1.0.0.6
+- Fixed animal pens becoming overcrowded after pregnancies
+- Fixed riding, cleanliness etc being shown for non-horses
+- Pregnant animals now eat more based on the how many babies they are carrying
+- Reduced some death chances
+- Added the following settings options:
+--- Change food scale
+- Added Ukrainian and Czech translations
+
+1.0.0.5
+- Fixed pregnancies not working in 1.0.0.4
 
 1.0.0.4
 - Ported over settings menu from Realistic Weather

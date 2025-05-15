@@ -224,6 +224,9 @@
 
 		<text name="rl_settings_accidentsChance_label" text="Accident Chance"/>
 		<text name="rl_settings_accidentsChance_tooltip" text="Change the likelihood of animals being removed due to random accidents"/>
+
+		<text name="rl_settings_foodScale_label" text="Food Scale"/>
+		<text name="rl_settings_foodScale_tooltip" text="Change the amount of food eaten by animals"/>
 		
 	</texts>
 </l10n>

@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<l10n>
+	<translationContributors>Kalderone</translationContributors>
+    <texts>
+		<!-- КОРОВИ -->
+		<text name="fillType_bull" text="Бик"/>
+		<text name="fillType_bull_swiss_brown" text="Бурий швейцарський бик"/>
+		<text name="fillType_bull_holstein" text="Гольштінський бик"/>
+		<text name="fillType_bull_angus" text="Ангусьский бик"/>
+		<text name="fillType_bull_limousin" text="Лімузинський бик"/>
+		<text name="animal_descriptionBullFeed" text="Бики їдять траву, сіно та TMR."/>
+		<text name="animal_descriptionBullYoung" text="Це бичок."/>
+		<text name="animal_descriptionBullReproduction" text="Бики, які здорові та старші за 12 місяців, можуть розмножуватись."/>
+
+		<!-- ВОДЯНІ БУЙВОЛИ -->
+		<text name="fillType_bull_waterbuffalo" text="Водяний буйвол"/>
+
+		<!-- СВИНІ -->
+		<text name="fillType_boar" text="Кабан"/>
+		<text name="fillType_boar_landrace" text="Кабан породи Ландрас"/>
+		<text name="fillType_boar_black_pied" text="Чорно-рябий кабан"/>
+		<text name="fillType_boar_berkshire" text="Кабан породи Беркшир"/>
+		<text name="animal_descriptionBoarReproduction" text="Кабани, які здорові та старші за 8 місяців, можуть розмножуватись."/>
+		<text name="animal_descriptionBoarFeed" text="Кабани їдять майже все. Їх можна годувати кукурудзою, пшеницею, ячменем, ріпаком, соняшником, соєю, картоплею, сорго та цукровими буряками."/>
+		<text name="animal_descriptionBoarYoung" text="Це пацєтко-самець"/>
+
+		<!-- ВІВЦІ -->
+		<text name="fillType_ram" text="Баран"/>
+		<text name="fillType_ram_landrace" text="Баран породи Ландрас Бентгейм"/>
+		<text name="fillType_ram_steinschaf" text="Баран породи Штайншаф"/>
+		<text name="fillType_ram_black_welsh" text="Баран Чорної валлійської гірської породи"/>
+		<text name="fillType_ram_swiss_mountain" text="Баран Швейцарської чорної-бурої гірської породи"/>
+		<text name="animal_descriptionRamFeed" text="Барани їдять траву та сіно."/>
+		<text name="animal_descriptionRamYoung" text="Це ягня-самець."/>
+		<text name="animal_descriptionRamReproduction" text="Барани, які здорові та старші за 5 місяців, можуть розмножуватись."/>
+
+		<!-- КОЗИ -->
+		<text name="fillType_ram_goat" text="Козел"/>
+
+		<!-- КОНІ -->
+		<text name="fillType_stallion" text="Жеребець"/>
+		<text name="fillType_stallion_gray" text="Сірий жеребець"/>
+		<text name="fillType_stallion_pinto" text="Пінто жеребець"/>
+		<text name="fillType_stallion_palomino" text="Паломіно жеребець"/>
+		<text name="fillType_stallion_chestnut" text="Каштановий жеребець"/>
+		<text name="fillType_stallion_bay" text="Гнідий жеребець"/>
+		<text name="fillType_stallion_black" text="Чорний жеребець"/>
+		<text name="fillType_stallion_seal_brown" text="Темно-коричневий жеребець"/>
+		<text name="fillType_stallion_dun" text="Мишастий жеребець"/>
+		<text name="animal_descriptionStallionFeed" text="Жеребці їдять сіно, овес і сорго."/>
+		<text name="animal_descriptionStallionProfit" text="Жеребців можна продавати з прибутком."/>
+		<text name="animal_descriptionStallionReproduction" text="Жеребці, які здорові та старші за 36 місяців, можуть розмножуватись."/>
+
+		<!-- ІНТЕРФЕЙС КОРИСТУВАЧА -->
+		<text name="input_VisualAnimalsDialog" text="Змінити кількість видимих тварин"/>
+		<text name="rl_button_apply" text="Застосувати"/>
+		<text name="rl_button_confirm" text="Підтвердити"/>
+		<text name="rl_button_recommended" text="Рекомендовано"/>
+		<text name="rl_button_cancel" text="Скасувати"/>
+		<text name="rl_button_random" text="Випадково"/>
+		<text name="rl_dialog_title" text="Встановити максимальну кількість видимих тварин"/>
+		<text name="rl_ui_unhealthy" text="Надто поганий стан здоров’я"/>
+		<text name="rl_ui_unhealthyBracketed" text="Ні (поганий стан здоров’я)"/>
+		<text name="rl_ui_noMaleAnimal" text="Немає відповідного самця"/>
+		<text name="rl_ui_noMaleAnimalBracketed" text="Ні (немає відповідного самця)"/>
+		<text name="rl_ui_recoveringLastBirth" text="Відновлення після пологів"/>
+		<text name="rl_ui_recoveringLastBirthBracketed" text="Ні (відновлення після пологів)"/>
+		<text name="rl_ui_tooYoung" text="Занадто молодий"/>
+		<text name="rl_ui_tooYoungBracketed" text="Ні (занадто молодий)"/>
+		<text name="rl_ui_pregnant" text="Вагітна"/>
+		<text name="rl_ui_lactating" text="Лактація"/>
+		<text name="rl_ui_canReproduce" text="Може розмножуватись"/>
+		<text name="rl_ui_impregnatedBy" text="Запліднено самцем"/>
+		<text name="rl_ui_unknown" text="Невідомо"/>
+		<text name="rl_ui_yes" text="Так"/>
+		<text name="rl_ui_no" text="Ні"/>
+		<text name="rl_ui_mother" text="Мати"/>
+		<text name="rl_ui_father" text="Батько"/>
+		<text name="rl_ui_uniqueId" text="Унікальний ID"/>
+		<text name="rl_ui_farmId" text="ID ферми"/>
+		<text name="rl_ui_gender" text="Стать"/>
+		<text name="rl_ui_male" text="Самець"/>
+		<text name="rl_ui_female" text="Самка"/>
+		<text name="rl_ui_weight" text="Вага"/>
+		<text name="rl_ui_targetWeight" text="Цільова вага"/>
+		<text name="rl_ui_value" text="Цінність"/>
+		<text name="rl_ui_valuePerKilo" text="Ціна за кг"/>
+		<text name="rl_ui_genetics" text="Генетика"/>
+		<text name="rl_ui_overall" text="Загальний стан"/>
+		<text name="rl_ui_rename" text="Змінити ім’я"/>
+		<text name="rl_ui_cantFindAnimal" text="Не вдалося знайти тварину"/>
+		<text name="rl_ui_maleNumImpregnatable" text="Запліднювані тварини в загоні"/>
+		<text name="rl_ui_breederQuality" text="Якість для розведення"/>
+		<text name="rl_ui_birthday" text="Дата народження"/>
+		<text name="rl_ui_pregnancyExpected" text="Очікується"/>
+		<text name="rl_ui_pregnancyExpecting" text="Очікує потомство"/>
+		<text name="rl_ui_pregnancyBaby" text="дитинча"/>
+		<text name="rl_ui_pregnancyBabies" text="дитинчата"/>
+		<text name="rl_ui_animalOrigin" text="Походження"/>
+		<text name="rl_ui_months" text="місяців"/>
+		<text name="rl_ui_month" text="місяць"/>
+		<text name="rl_ui_years" text="років"/>
+		<text name="rl_ui_year" text="рік"/>
+		<text name="rl_ui_milk" text="Виробництво молока"/>
+		<text name="rl_ui_wool" text="Виробництво вовни"/>
+		<text name="rl_ui_eggs" text="Виробництво яєць"/>
+		<text name="rl_ui_metabolism" text="Метаболізм"/>
+		<text name="rl_ui_meat" text="Якість м’яса"/>
+		<text name="rl_ui_health" text="Здоров’я"/>
+		<text name="rl_ui_fertility" text="Фертильність"/>
+		<text name="rl_ui_genetics_extremelyLow" text="Крайній низький рівень"/>
+		<text name="rl_ui_genetics_veryLow" text="Дуже низький рівень"/>
+		<text name="rl_ui_genetics_low" text="Низький рівень"/>
+		<text name="rl_ui_genetics_average" text="Середній рівень"/>
+		<text name="rl_ui_genetics_high" text="Високий рівень"/>
+		<text name="rl_ui_genetics_veryHigh" text="Дуже високий рівень"/>
+		<text name="rl_ui_genetics_extremelyHigh" text="Крайній високий рівень"/>
+		<text name="rl_ui_genetics_extremelyBad" text="Крайня погана"/>
+		<text name="rl_ui_genetics_veryBad" text="Дуже погана"/>
+		<text name="rl_ui_genetics_bad" text="Погана"/>
+		<text name="rl_ui_genetics_good" text="Хороша"/>
+		<text name="rl_ui_genetics_veryGood" text="Дуже хороша"/>
+		<text name="rl_ui_genetics_extremelyGood" text="Крайня хороша"/>
+        <text name="rl_ui_cow_multipleBirths" text="Народилося %s телят" tag="format"/>
+		<text name="rl_ui_cow_singleBirth" text="Народилося 1 теля"/>
+		<text name="rl_ui_pig_multipleBirths" text="Народилося %s поросят" tag="format"/>
+		<text name="rl_ui_pig_singleBirth" text="Народилося 1 порося"/>
+		<text name="rl_ui_sheep_multipleBirths" text="Народилося %s ягнят" tag="format"/>
+		<text name="rl_ui_sheep_singleBirth" text="Народилося 1 ягня"/>
+		<text name="rl_ui_chicken_multipleBirths" text="Народилося %s курчат" tag="format"/>
+		<text name="rl_ui_chicken_singleBirth" text="Народилося 1 курча"/>
+		<text name="rl_ui_horse_multipleBirths" text="Народилося %s жеребців" tag="format"/>
+		<text name="rl_ui_horse_singleBirth" text="Народилося 1 жеребець"/>
+
+		<text name="rl_ui_cow_multipleDeaths_birth" text="Видалено %s корів через ускладнення при вагітності" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_birth" text="Видалено 1 корову через ускладнення при вагітності"/>
+		<text name="rl_ui_pig_multipleDeaths_birth" text="Видалено %s свиней через ускладнення при вагітності" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_birth" text="Видалено 1 свиню через ускладнення при вагітності"/>
+		<text name="rl_ui_sheep_multipleDeaths_birth" text="Видалено %s овець через ускладнення при вагітності" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_birth" text="Видалено 1 вівцю через ускладнення при вагітності"/>
+		<text name="rl_ui_horse_multipleDeaths_birth" text="Видалено %s коней через ускладнення при вагітності" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_birth" text="Видалено 1 коня через ускладнення при вагітності"/>
+
+		<text name="rl_ui_cow_multipleSold_birth" text="Продано %s телят при народженні через перенаселення" tag="format"/>
+		<text name="rl_ui_cow_singleSold_birth" text="Продано 1 теля при народженні через перенаселення"/>
+		<text name="rl_ui_pig_multipleSold_birth" text="Продано %s поросят при народженні через перенаселення" tag="format"/>
+		<text name="rl_ui_pig_singleSold_birth" text="Продано 1 порося при народженні через перенаселення"/>
+		<text name="rl_ui_sheep_multipleSold_birth" text="Продано %s ягнят при народженні через перенаселення" tag="format"/>
+		<text name="rl_ui_sheep_singleSold_birth" text="Продано 1 ягня при народженні через перенаселення"/>
+		<text name="rl_ui_chicken_multipleSold_birth" text="Продано %s курчат при народженні через перенаселення" tag="format"/>
+		<text name="rl_ui_chicken_singleSold_birth" text="Продано 1 курча при народженні через перенаселення"/>
+		<text name="rl_ui_horse_multipleSold_birth" text="Продано %s лошат при народженні через перенаселення" tag="format"/>
+		<text name="rl_ui_horse_singleSold_birth" text="Продано 1 лоша при народженні через перенаселення"/>
+
+		<text name="rl_ui_cow_multipleDeaths_health" text="Видалено %s корів через поганий стан здоров’я" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_health" text="Видалено 1 корову через поганий стан здоров’я"/>
+		<text name="rl_ui_pig_multipleDeaths_health" text="Видалено %s свиней через поганий стан здоров’я" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_health" text="Видалено 1 свиню через поганий стан здоров’я"/>
+		<text name="rl_ui_sheep_multipleDeaths_health" text="Видалено %s овець через поганий стан здоров’я" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_health" text="Видалено 1 вівцю через поганий стан здоров’я"/>
+		<text name="rl_ui_chicken_multipleDeaths_health" text="Видалено %s курей через поганий стан здоров’я" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_health" text="Видалено 1 курку через поганий стан здоров’я"/>
+		<text name="rl_ui_horse_multipleDeaths_health" text="Видалено %s жеребців через поганий стан здоров’я" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_health" text="Видалено 1 жеребець через поганий стан здоров’я"/>
+
+		<text name="rl_ui_cow_multipleDeaths_age" text="Видалено %s корів через старість" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_age" text="Видалено 1 корову через старість"/>
+		<text name="rl_ui_pig_multipleDeaths_age" text="Видалено %s свиней через старість" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_age" text="Видалено 1 свиню через старість"/>
+		<text name="rl_ui_sheep_multipleDeaths_age" text="Видалено %s овець через старість" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_age" text="Видалено 1 вівцю через старість"/>
+		<text name="rl_ui_chicken_multipleDeaths_age" text="Видалено %s курей через старість" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_age" text="Видалено 1 курку через старість"/>
+		<text name="rl_ui_horse_multipleDeaths_age" text="Видалено %s коней через старість" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_age" text="Видалено 1 коня через старість"/>
+
+		<text name="rl_ui_cow_multipleDeaths_random" text="Видалено %s корів через нещасні випадки, продано за %s" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_random" text="Видалено 1 корову через нещасний випадок, продано за %s" tag="format"/>
+		<text name="rl_ui_pig_multipleDeaths_random" text="Видалено %s свиней через нещасні випадки, продано за %s" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_random" text="Видалено 1 свиню через нещасний випадок, продано за %s" tag="format"/>
+		<text name="rl_ui_sheep_multipleDeaths_random" text="Видалено %s овець через нещасні випадки, продано за %s" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_random" text="Видалено 1 вівцю через нещасний випадок, продано за %s" tag="format"/>
+		<text name="rl_ui_chicken_multipleDeaths_random" text="Видалено %s курей через нещасні випадки" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_random" text="Видалено 1 курку через нещасний випадок"/>
+		<text name="rl_ui_horse_multipleDeaths_random" text="Видалено %s коней через нещасні випадки, продано за %s" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_random" text="Видалено 1 коня через нещасний випадок, продано за %s" tag="format"/>
+
+		<text name="rl_ui_buySelected" text="Купити вибране"/>
+		<text name="rl_ui_sellSelected" text="Продати вибране"/>
+		<text name="rl_ui_moveSelected" text="Перемістити вибране"/>
+		<text name="rl_ui_buyConfirmation" text="Ви впевнені, що хочете купити %s тварин за %s?" tag="format"/>
+		<text name="rl_ui_sellConfirmation" text="Ви впевнені, що хочете продати %s тварин за %s?" tag="format"/>
+		<text name="rl_ui_moveConfirmation" text="Ви впевнені, що хочете перемістити %s тварин?" tag="format"/>
+		<text name="rl_ui_buyBulkResult" text="Куплено %s тварин за %s" tag="format"/>
+		<text name="rl_ui_sellBulkResult" text="Продано %s тварин за %s" tag="format"/>
+		<text name="rl_ui_moveBulkResult" text="Переміщено %s тварин" tag="format"/>
+
+		<!-- НАЛАШТУВАННЯ -->
+		<text name="rl_settings" text="Реалістичне тваринництво"/>
+		<text name="rl_settings_off" text="Вимкнено"/>
+		<text name="rl_settings_on" text="Увімкнено"/>
+		<text name="rl_settings_deathEnabled_label" text="Видалення тварин"/>
+		<text name="rl_settings_deathEnabled_tooltip_1" text="Тварини не видалятимуться через вагітність, стан здоров’я, вік або нещасні випадки"/>
+		<text name="rl_settings_deathEnabled_tooltip_2" text="Тварини будуть видалятися через вагітність, стан здоров’я, вік або нещасні випадки"/>
+		<text name="rl_settings_accidentsChance_label" text="Ймовірність нещасних випадків"/>
+		<text name="rl_settings_accidentsChance_tooltip" text="Змініть ймовірність видалення тварин через випадкові нещасні випадки"/>
+
+		<text name="rl_settings_foodScale_label" text="Food Scale"/>
+		<text name="rl_settings_foodScale_tooltip" text="Change the amount of food eaten by animals"/>    
+	</texts>
+</l10n>
