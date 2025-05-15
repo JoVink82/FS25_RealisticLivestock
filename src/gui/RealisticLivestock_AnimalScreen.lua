@@ -569,8 +569,9 @@ function RealisticLivestock_AnimalScreen:populateCellForItemInSection(_, list, _
         self.isHorse = g_currentMission.animalSystem:getSubTypeByIndex(item:getSubTypeIndex()).typeIndex == AnimalType.HORSE
         
         local name = item:getName()
+        local animal = item.animal or item.cluster
 
-        if not self.isHorse and (not self.isBuyMode or (self.controller.trailer ~= nil and self.controller.husbandry ~= nil and self.isBuyMode)) and item.cluster.uniqueId ~= nil then name = item.cluster.uniqueId .. (name == "" and "" or (" (" .. name .. ")")) end
+        if animal:getName() == "" and not self.isHorse and (not self.isBuyMode or (self.controller.trailer ~= nil and self.controller.husbandry ~= nil and self.isBuyMode)) and animal.uniqueId ~= nil then name = string.format("%s %s %s", RealisticLivestock.AREA_CODES[animal.birthday.country].code, animal.farmId, animal.uniqueId) end
 
         cell:getAttribute("name"):setText(name)
 
@@ -712,6 +713,8 @@ function AnimalScreen:buySelected(clickYes)
 
     self.controller:applySourceBulk(self.pendingBulkTransaction.animalTypeIndex, self.pendingBulkTransaction.items)
 
+    self.selectedItems = {}
+
 end
 
 
@@ -720,5 +723,7 @@ function AnimalScreen:sellSelected(clickYes)
     if not clickYes or self.pendingBulkTransaction == nil then return end
 
     self.controller:applyTargetBulk(self.pendingBulkTransaction.animalTypeIndex, self.pendingBulkTransaction.items)
+
+    self.selectedItems = {}
 
 end
