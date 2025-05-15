@@ -5,6 +5,7 @@ local modDirectory = g_currentModDirectory
 
 
 function RealisticLivestock_AnimalSystem:loadAnimals(superFunc, _, _)
+
     local path = modDirectory .. "xml/animals.xml"
     local xmlFile = XMLFile.load("animals", path)
 
@@ -423,7 +424,7 @@ function AnimalSystem:createNewSaleAnimal(animalTypeIndex)
 
         local countryIndex
 
-        if #attemptedCountryIndexes == 0 and math.random() >= 0.1 then
+        if #attemptedCountryIndexes == 0 and math.random() >= 0.12 then
             countryIndex = RealisticLivestock.getMapCountryIndex()
         else
             countryIndex = math.random(1, #self.countries)

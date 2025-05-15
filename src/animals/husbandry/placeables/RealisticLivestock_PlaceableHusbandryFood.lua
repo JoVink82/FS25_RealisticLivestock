@@ -11,8 +11,7 @@ function RealisticLivestock_PlaceableHusbandryFood:onHusbandryAnimalsUpdate(supe
             local food = subType.input.food
             if food ~= nil then
                 local age = animal:getAge()
-                local litersPerAnimal = food:get(age)
-                local litersPerDay = litersPerAnimal
+                local litersPerDay = food:get(age)
 
                 local reproduction = animal.reproduction
                 local milkSpec = self.spec_husbandryMilk
@@ -21,11 +20,13 @@ function RealisticLivestock_PlaceableHusbandryFood:onHusbandryAnimalsUpdate(supe
                     litersPerDay = litersPerDay * 1.25
                 end
 
-                if reproduction ~= nil and reproduction > 0 then
-                    litersPerDay = litersPerDay * (1 + ((reproduction / 100) / 5))
+                if reproduction ~= nil and reproduction > 0 and animal.pregnancy ~= nil and animal.pregnancy.pregnancies ~= nil then
+                    litersPerDay = litersPerDay * math.pow(1 + ((reproduction / 100) / 5), #animal.pregnancy.pregnancies)
                 end
 
                 if animal.genetics.metabolism ~= nil then litersPerDay = litersPerDay * animal.genetics.metabolism end
+
+                litersPerDay = litersPerDay * (RealisticLivestock_PlaceableHusbandryFood.foodScale or 1)
 
                 spec.litersPerHour = spec.litersPerHour + (litersPerDay / 24)
                 --print("current food litres per hour: " .. spec.litersPerHour .. "L")
@@ -45,3 +46,10 @@ function RealisticLivestock_PlaceableHusbandryFood:loadFromXMLFile(xmlFile, key)
 end
 
 PlaceableHusbandryFood.loadFromXMLFile = Utils.appendedFunction(PlaceableHusbandryFood.loadFromXMLFile, RealisticLivestock_PlaceableHusbandryFood.loadFromXMLFile)
+
+
+function RealisticLivestock_PlaceableHusbandryFood.onSettingChanged(name, state)
+
+    RealisticLivestock_PlaceableHusbandryFood[name] = state
+
+end

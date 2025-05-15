@@ -36,9 +36,7 @@ function RealisticLivestock_AnimalItemStock.new(animal)
 		table.insert(self.infos, newInfo)
 	end
 
-	local isHorse = string.contains(subType.name, "HORSE", true) or string.contains(subType.name, "STALLION", true) 
-
-	if animal.isIndividual and not isHorse then
+	if animal.isIndividual then
 
 		local yes = g_i18n:getText("rl_ui_yes")
 		local no = g_i18n:getText("rl_ui_no")
@@ -52,7 +50,7 @@ function RealisticLivestock_AnimalItemStock.new(animal)
                 valueText = g_i18n:getText("rl_ui_tooYoung")
             elseif animal.isParent and animal.monthsSinceLastBirth <= 2 then
                 valueText = g_i18n:getText("rl_ui_recoveringLastBirth")
-            elseif not RealisticLivestock.hasMaleAnimalInPen(animal.clusterSystem, animal.subTypeName, animal) then
+            elseif not RealisticLivestock.hasMaleAnimalInPen(animal.clusterSystem, animal.subType, animal) then
                 valueText = g_i18n:getText("rl_ui_noMaleAnimal")
             elseif healthFactor < subType.reproductionMinHealth then
                 valueText = g_i18n:getText("rl_ui_unhealthy")
@@ -66,6 +64,17 @@ function RealisticLivestock_AnimalItemStock.new(animal)
 			end
 
 		end
+
+
+		local pregnancy = animal.pregnancy
+
+        if pregnancy ~= nil and pregnancy.pregnancies and #pregnancy.pregnancies > 0 then
+
+            table.insert(self.infos, { ["title"] = g_i18n:getText("rl_ui_pregnancyExpecting"), ["value"] = string.format("%s %s", #pregnancy.pregnancies, g_i18n:getText("rl_ui_pregnancy" .. (#pregnancy.pregnancies == 1 and "Baby" or "Babies"))) })
+            table.insert(self.infos, { ["title"] = g_i18n:getText("rl_ui_pregnancyExpected"), ["value"] = string.format("%s/%s/%s", pregnancy.expected.day, pregnancy.expected.month, pregnancy.expected.year + RealisticLivestock.START_YEAR.FULL) })         
+
+		end
+
 
 		table.insert(self.infos, {
 			title = g_i18n:getText("rl_ui_weight"),
@@ -96,29 +105,14 @@ function RealisticLivestock_AnimalItemStock.new(animal)
 		end
 
 	end
+
+	if animal.animalTypeIndex == AnimalType.HORSE then
+
+		table.insert(self.infos, { ["title"] = g_i18n:getText("ui_horseFitness"), ["value"] = string.format("%.f%%", animal:getFitnessFactor() * 100) })
+		table.insert(self.infos, { ["title"] = g_i18n:getText("ui_horseDailyRiding"), ["value"] = string.format("%.f%%", animal:getRidingFactor() * 100) })
 	
-	if animal.getFitnessFactor ~= nil then
-		local newInfo = {
-			title = g_i18n:getText("ui_horseFitness"),
-			value = string.format("%.f%%", animal:getFitnessFactor() * 100)
-		}
-		table.insert(self.infos, newInfo)
-	end
-	
-	if animal.getRidingFactor ~= nil then
-		local newInfo = {
-			title = g_i18n:getText("ui_horseDailyRiding"),
-			value = string.format("%.f%%", animal:getRidingFactor() * 100)
-		}
-		table.insert(self.infos, newInfo)
-	end
-	
-	if Platform.gameplay.needHorseCleaning and animal.getDirtFactor ~= nil then
-		local newInfo = {
-			title = g_i18n:getText("statistic_cleanliness"),
-			value = string.format("%.f%%", (1 - animal:getDirtFactor()) * 100)
-		}
-		table.insert(self.infos, newInfo)
+		if Platform.gameplay.needHorseCleaning then table.insert(self.infos, { ["title"] = g_i18n:getText("statistic_cleanliness"), ["value"] = string.format("%.f%%", (1 - animal:getDirtFactor()) * 100) }) end
+
 	end
 	
 	return self
