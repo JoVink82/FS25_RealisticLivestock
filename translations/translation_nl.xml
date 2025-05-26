@@ -1,0 +1,232 @@
+<l10n>
+	<texts>
+		<!-- COWS -->
+		
+		<text name="fillType_bull" text="Stier"/>
+		<text name="fillType_bull_swiss_brown" text="Brown-Swiss Stier"/>
+		<text name="fillType_bull_holstein" text="Holstein Stier"/>
+		<text name="fillType_bull_angus" text="Angus Stier"/>
+		<text name="fillType_bull_limousin" text="Limousin Stier"/>
+		<text name="animal_descriptionBullFeed" text="Stieren houden van gras, hooi en TMR."/>
+		<text name="animal_descriptionBullYoung" text="Dit is een stier klafje."/>
+		<text name="animal_descriptionBullReproduction" text="Stieren die gezond zijn en ouder dan 12 maand kunnen zich voortplanten."/>
+
+		<!-- WATER BUFFALOS -->
+
+		<text name="fillType_bull_waterbuffalo" text="Water Buffel Stier"/>
+
+		<!-- PIGS -->
+		
+		<text name="fillType_boar" text="Beer"/>
+		<text name="fillType_boar_landrace" text="Landrace Beer"/>
+		<text name="fillType_boar_black_pied" text="Black-Pied BeerBeer"/>
+		<text name="fillType_boar_berkshire" text="Berkshire Beer"/>
+		<text name="animal_descriptionBoarReproduction" text="Een Beer die gezond is en ouder dan 8 maand kan zich voortplanten."/>
+		<text name="animal_descriptionBoarFeed" text="Een Beer eet bijna alles. je kan ze voeren met mais, tarwe, gerst, koolzaad, zonnebloemen, sojabonen, sorghum, aardappelen en suikerbieten."/>
+		<text name="animal_descriptionBoarYoung" text="Dit is een mannetjes big."/>
+
+		<!-- SHEEP -->
+		
+		<text name="fillType_ram" text="Ram"/>
+		<text name="fillType_ram_landrace" text="Landrace of Bentheim Ram"/>
+		<text name="fillType_ram_steinschaf" text="Steinschaf Ram"/>
+		<text name="fillType_ram_black_welsh" text="Black Welsh Mountain Ram"/>
+		<text name="fillType_ram_swiss_mountain" text="Swiss Black-Brown Mountain Ram"/>
+		<text name="animal_descriptionRamFeed" text="Een ram eet gras en hooi."/>
+		<text name="animal_descriptionRamYoung" text="Dit is en ramlam."/>
+		<text name="animal_descriptionRamReproduction" text="een ram die gezond is en ouder dan 5 5 maanden kan zich voortplanten."/>
+
+		<!-- GOATS -->
+
+		<text name="fillType_ram_goat" text="Bok"/>
+		
+		<!-- HORSES -->
+		
+		<text name="fillType_stallion" text="Hengst"/>
+		<text name="fillType_stallion_gray" text="Grijze Hengst"/>
+		<text name="fillType_stallion_pinto" text="Pinto Hengst"/>
+		<text name="fillType_stallion_palomino" text="Palomino Hengst"/>
+		<text name="fillType_stallion_chestnut" text="Chestnut Hengst"/>
+		<text name="fillType_stallion_bay" text="Bay Hengst"/>
+		<text name="fillType_stallion_black" text="Black Hengst"/>
+		<text name="fillType_stallion_seal_brown" text="Seal Brown Hengst"/>
+		<text name="fillType_stallion_dun" text="Dun Hengst"/>
+		<text name="animal_descriptionStallionFeed" text="Hengsten houden van hooi, haver en sorghum."/>
+		<text name="animal_descriptionStallionProfit" text="Stieren kunnen verkocht worden om winst te maken."/>
+		<text name="animal_descriptionStallionReproduction" text="Stieren die gezond zijn en ouder dan 36 maand kunnen zich voortplanten."/>
+
+
+        <!-- UI -->
+
+		
+        <text name="input_VisualAnimalsDialog" text="Verander het aantal zichtbare dieren"/>
+        <text name="rl_button_apply" text="Toepassen"/>
+        <text name="rl_button_confirm" text="Bevestig"/>
+        <text name="rl_button_recommended" text="Aanbevolen"/>
+        <text name="rl_button_cancel" text="Anuleer"/>
+        <text name="rl_button_random" text="Willekeurig"/>
+        <text name="rl_dialog_title" text="Stel het maximum aantal zichtbaare dieren in"/>
+
+        <text name="rl_ui_unhealthy" text="Te ongezond"/>
+        <text name="rl_ui_unhealthyBracketed" text="Nee (te ongezond)"/>
+        <text name="rl_ui_noMaleAnimal" text="Geen geschikt mannelijk dier"/>
+        <text name="rl_ui_noMaleAnimalBracketed" text="nee (Geen geschikt mannelijk dier)"/>
+        <text name="rl_ui_recoveringLastBirth" text="Herstellend van laatse bevalling"/>
+        <text name="rl_ui_recoveringLastBirthBracketed" text="Nee (Herstellend van laatse bevalling)"/>
+        <text name="rl_ui_tooYoung" text="Te jong"/>
+        <text name="rl_ui_tooYoungBracketed" text="Nee (te jong)"/>
+        <text name="rl_ui_pregnant" text="Zwanger"/>
+        <text name="rl_ui_lactating" text="lacterend "/>
+        <text name="rl_ui_canReproduce" text="Kan voortplanten"/>
+        <text name="rl_ui_impregnatedBy" text="gedekt door"/>
+        <text name="rl_ui_unknown" text="onbekend"/>
+        <text name="rl_ui_yes" text="Ja"/>
+        <text name="rl_ui_no" text="Nee"/>
+        <text name="rl_ui_mother" text="Moeder"/>
+        <text name="rl_ui_father" text="Vader"/>
+        <text name="rl_ui_uniqueId" text="Uniek ID"/>
+        <text name="rl_ui_farmId" text="Boerderij ID"/>
+        <text name="rl_ui_gender" text="Gender"/>
+        <text name="rl_ui_male" text="Man"/>
+        <text name="rl_ui_female" text="Vrouw"/>
+        <text name="rl_ui_weight" text="Gewicht"/>
+		<text name="rl_ui_targetWeight" text="Doel gewicht"/>
+        <text name="rl_ui_value" text="Waarde"/>
+        <text name="rl_ui_valuePerKilo" text="Waarde per kg"/>
+		<text name="rl_ui_genetics" text="Genetica"/>
+		<text name="rl_ui_overall" text="Algemeen"/>
+		<text name="rl_ui_rename" text="Verander naam"/>
+		<text name="rl_ui_cantFindAnimal" text="Kan dier niet vinden"/>
+		<text name="rl_ui_maleNumImpregnatable" text="aantal vruchtbaare dieren"/>
+		
+		<text name="rl_ui_breederQuality" text="Kwaliteit fokker"/>
+		<text name="rl_ui_birthday" text="Verjaardag"/>
+		<text name="rl_ui_pregnancyExpected" text="Verwacht"/>
+		<text name="rl_ui_pregnancyExpecting" text="Verwachting"/>
+		<text name="rl_ui_pregnancyBaby" text="baby"/>
+		<text name="rl_ui_pregnancyBabies" text="baby's"/>
+		<text name="rl_ui_animalOrigin" text="Herkomst"/>
+		<text name="rl_ui_months" text="Maanden"/>
+		<text name="rl_ui_month" text="Maand"/>
+		<text name="rl_ui_years" text="Jaaren"/>
+		<text name="rl_ui_year" text="Jaar"/>
+
+		<text name="rl_ui_milk" text="Melk productie"/>
+		<text name="rl_ui_wool" text="Wol productie"/>
+		<text name="rl_ui_eggs" text="Ei productie"/>
+		<text name="rl_ui_metabolism" text="metabolisme"/>
+		<text name="rl_ui_meat" text="Kwaliteit"/>
+		<text name="rl_ui_health" text="Gezondheid"/>
+		<text name="rl_ui_fertility" text="Vruchtbaarheid"/>
+		
+		<text name="rl_ui_genetics_extremelyLow" text="Extreem laag"/>
+		<text name="rl_ui_genetics_veryLow" text="Heel laag"/>
+		<text name="rl_ui_genetics_low" text="Laag"/>
+		<text name="rl_ui_genetics_average" text="Gemideld"/>
+		<text name="rl_ui_genetics_high" text="Hoog"/>
+		<text name="rl_ui_genetics_veryHigh" text="Heel hoog"/>
+		<text name="rl_ui_genetics_extremelyHigh" text="Extreem hoog"/>
+
+		<text name="rl_ui_genetics_extremelyBad" text="Extreem slecht"/>
+		<text name="rl_ui_genetics_veryBad" text="Heel slecht"/>
+		<text name="rl_ui_genetics_bad" text="Slecht"/>
+		<text name="rl_ui_genetics_good" text="Goed"/>
+		<text name="rl_ui_genetics_veryGood" text="Heel goed/>
+		<text name="rl_ui_genetics_extremelyGood" text="Extreem goed"/>
+
+        <text name="rl_ui_cow_multipleBirths" text="%s kalveren geboren" tag="format"/>
+        <text name="rl_ui_cow_singleBirth" text="1 kalf geboren"/>
+        <text name="rl_ui_pig_multipleBirths" text="%s biggen geboren" tag="format"/>
+        <text name="rl_ui_pig_singleBirth" text="1 big geboren"/>
+        <text name="rl_ui_sheep_multipleBirths" text="%s lammeren geboren" tag="format"/>
+        <text name="rl_ui_sheep_singleBirth" text="1 lam geboren"/>
+        <text name="rl_ui_chicken_multipleBirths" text="%s kuikens geboren" tag="format"/>
+        <text name="rl_ui_chicken_singleBirth" text="1 kuiken geboren"/>
+        <text name="rl_ui_horse_multipleBirths" text="%s veulens geboren" tag="format"/>
+        <text name="rl_ui_horse_singleBirth" text="1 veulen geboren"/>
+
+        <text name="rl_ui_cow_multipleDeaths_birth" text="%s koeien verwijderd door complicaties tijdens zwangerschap" tag="format"/>
+        <text name="rl_ui_cow_singleDeath_birth" text="1 koe verwijderd door complicaties tijdens zwangerschap"/>
+        <text name="rl_ui_pig_multipleDeaths_birth" text="%s varkens verwijderd door complicaties tijdens zwangerschap" tag="format"/>
+        <text name="rl_ui_pig_singleDeath_birth" text="1 varken verwijderd door complicaties tijdens zwangerschap"/>
+        <text name="rl_ui_sheep_multipleDeaths_birth" text="%s schapen verwijderd door complicaties tijdens zwangerschap" tag="format"/>
+        <text name="rl_ui_sheep_singleDeath_birth" text="1 schaap verwijderd door complicaties tijdens zwangerschap"/>
+        <text name="rl_ui_horse_multipleDeaths_birth" text="%s paarden verwijderd door complicaties tijdens zwangerschap" tag="format"/>
+        <text name="rl_ui_horse_singleDeath_birth" text="1 paard verwijderd door complicaties tijdens zwangerschap"/>
+
+        <text name="rl_ui_cow_multipleSold_birth" text="%s kalveren verkocht wegens te veel dieren" tag="format"/>
+        <text name="rl_ui_cow_singleSold_birth" text="1 kalf verkocht wegens te veel dieren"/>
+        <text name="rl_ui_pig_multipleSold_birth" text="%s biggen verkocht wegens te veel dieren" tag="format"/>
+        <text name="rl_ui_pig_singleSold_birth" text="1 big verkocht wegens te veel dieren"/>
+        <text name="rl_ui_sheep_multipleSold_birth" text="%s lammeren verkocht wegens te veel dieren" tag="format"/>
+        <text name="rl_ui_sheep_singleSold_birth" text="1 lam verkocht wegens te veel dieren"/>
+        <text name="rl_ui_chicken_multipleSold_birth" text="%s kuikens verkocht wegens te veel dieren" tag="format"/>
+        <text name="rl_ui_chicken_singleSold_birth" text="1 kuiken verkocht wegens te veel dieren"/>
+        <text name="rl_ui_horse_multipleSold_birth" text="%s veulens verkocht wegens te veel dieren" tag="format"/>
+        <text name="rl_ui_horse_singleSold_birth" text="1 veulen verkocht wegens te veel dieren"/>
+
+		<text name="rl_ui_cow_multipleDeaths_health" text="%s koeien verkocht wegens slechte gezondheid" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_health" text="1 koe verkocht wegens slechte gezondheid"/>
+		<text name="rl_ui_pig_multipleDeaths_health" text="%s varkens verkocht wegens slechte gezondheid" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_health" text="1 varken verkocht wegens slechte gezondheid"/>
+		<text name="rl_ui_sheep_multipleDeaths_health" text="%s schapen verkocht wegens slechte gezondheid" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_health" text="1 schaap verkocht wegens slechte gezondheid"/>
+		<text name="rl_ui_chicken_multipleDeaths_health" text="%s kippen verkocht wegens slechte gezondheid" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_health" text="1 kip verkocht wegens slechte gezondheid"/>
+		<text name="rl_ui_horse_multipleDeaths_health" text="%s paarden verkocht wegens slechte gezondheid" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_health" text="1 paard verkocht wegens slechte gezondheid"/>
+
+		<text name="rl_ui_cow_multipleDeaths_age" text="%s koeien verkocht wegens leeftijd (te oud)" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_age" text="1 koe verkocht wegens leeftijd (te oud)"/>
+		<text name="rl_ui_pig_multipleDeaths_age" text="%s varkens verkocht wegens leeftijd (te oud)" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_age" text="1 varken verkocht wegens leeftijd (te oud)"/>
+		<text name="rl_ui_sheep_multipleDeaths_age" text="%s schapen verkocht wegens leeftijd (te oud)" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_age" text="1 schaap verkocht wegens leeftijd (te oud)"/>
+		<text name="rl_ui_chicken_multipleDeaths_age" text="%s kippen verkocht wegens leeftijd (te oud)" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_age" text="1 kip verkocht wegens leeftijd (te oud)"/>
+		<text name="rl_ui_horse_multipleDeaths_age" text="%s paarden verkocht wegens leeftijd (te oud)" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_age" text="1 paard verkocht wegens leeftijd (te oud)"/>
+
+		<text name="rl_ui_cow_multipleDeaths_random" text="%s koeien verwijderd ivm willekeurige ongelukken, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_cow_singleDeath_random" text="1 koe verwijderd ivm willekeurig ongeluk, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_pig_multipleDeaths_random" text="%s varkens verwijderd ivm willekeurige ongelukken, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_pig_singleDeath_random" text="1 varken verwijderd ivm willekeurig ongeluk, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_sheep_multipleDeaths_random" text="%s schapen verwijderd ivm willekeurige ongelukken, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_sheep_singleDeath_random" text="1 schaap verwijderd ivm willekeurig ongeluk, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_chicken_multipleDeaths_random" text="%s kippen verwijderd ivm willekeurige ongelukken" tag="format"/>
+		<text name="rl_ui_chicken_singleDeath_random" text="1 kip verwijderd ivm willekeurig ongeluk"/>
+		<text name="rl_ui_horse_multipleDeaths_random" text="%s paarden verwijderd ivm willekeurige ongelukken, verkocht voor %s" tag="format"/>
+		<text name="rl_ui_horse_singleDeath_random" text="1 paard verwijderd ivm willekeurig ongeluk, verkocht voor %s" tag="format"/>
+		
+		<text name="rl_ui_buySelected" text="Koop geselecteerde"/>
+		<text name="rl_ui_sellSelected" text="Verkoop geselecteerde"/>
+		<text name="rl_ui_moveSelected" text="Verplaats geselecteerde"/>
+		<text name="rl_ui_buyConfirmation" text="Weet je zeker dat je %s dieren voor %s kopen wilt?" tag="format"/>
+		<text name="rl_ui_sellConfirmation" text="Weet je zeker dat je %s dieren voor %s verkopen wilt?" tag="format"/>
+		<text name="rl_ui_moveConfirmation" text="Weet je zeker dat je %s dieren verplaatsen wilt?" tag="format"/>
+		<text name="rl_ui_buyBulkResult" text="%s dieren gekocht voor %s" tag="format"/>
+		<text name="rl_ui_sellBulkResult" text="%s dieren verkocht voor %s" tag="format"/>
+		<text name="rl_ui_moveBulkResult" text="%s dieren verplaatst" tag="format"/>
+
+
+
+		<!--  SETTINGS  -->
+		
+
+		<text name="rl_settings" text="Realistic Livestock"/>
+
+		<text name="rl_settings_off" text="Uit"/>
+		<text name="rl_settings_on" text="Aan"/>
+
+		<text name="rl_settings_deathEnabled_label" text="Dieren verwijderen"/>
+		<text name="rl_settings_deathEnabled_tooltip_1" text="Dieren worden niet verwijderd door zwangerschap, gezondheid, leeftijd of ongelukken"/>
+		<text name="rl_settings_deathEnabled_tooltip_2" text="Dieren worden verwijderd door zwangerschap, gezondheid, leeftijd of ongelukken"/>
+
+		<text name="rl_settings_accidentsChance_label" text="Kans op ongelukken"/>
+		<text name="rl_settings_accidentsChance_tooltip" text="Verander de kans dat een dier wordt verwijderd door willekeurige ongelukken"/>
+
+		<text name="rl_settings_foodScale_label" text="Voedsel schaal"/>
+		<text name="rl_settings_foodScale_tooltip" text="Verander de hoeveelheid voedsel die door dieren gegeten wordt"/>
+		
+	</texts>
+</l10n>
